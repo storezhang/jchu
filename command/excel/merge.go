@@ -1,32 +1,31 @@
-package command
+package excel
 
 import (
-	"cli/service"
+	"github.com/storezhang/cli/service"
 
 	"github.com/pangum/pangu"
 	"github.com/pangum/pangu/app"
 )
 
 type (
-	// Duplicate 去重
-	Duplicate struct {
+	merge struct {
 		duplicate *service.Duplicate
 	}
 
-	duplicateIn struct {
+	mergeIn struct {
 		pangu.In
 
 		Duplicate *service.Duplicate
 	}
 )
 
-func newDuplicate(in duplicateIn) *Duplicate {
-	return &Duplicate{
+func newMerge(in mergeIn) *merge {
+	return &merge{
 		duplicate: in.Duplicate,
 	}
 }
 
-func (d *Duplicate) Run(_ *app.Context) (err error) {
+func (m *merge) Run(_ *app.Context) (err error) {
 	ins := []string{
 		`assert/list.xlsx`,
 		`assert/keyword.xlsx`,
@@ -50,27 +49,27 @@ func (d *Duplicate) Run(_ *app.Context) (err error) {
 		`机构地址`,
 		`经营范围`,
 	}
-	if err = d.duplicate.Removal(ins, out, headers); nil != err {
+	if err = m.duplicate.Removal(ins, out, headers); nil != err {
 		return
 	}
 
 	return
 }
 
-func (d *Duplicate) SubCommands() (commands []app.Command) {
+func (m *merge) SubCommands() (commands []app.Command) {
 	return
 }
 
-func (d *Duplicate) Aliases() []string {
+func (m *merge) Aliases() []string {
 	return []string{
-		`d`,
+		`m`,
 	}
 }
 
-func (d *Duplicate) Name() string {
+func (m *merge) Name() string {
 	return `duplicate`
 }
 
-func (d *Duplicate) Usage() string {
+func (m *merge) Usage() string {
 	return ``
 }

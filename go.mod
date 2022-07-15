@@ -1,4 +1,4 @@
-module cli
+module github.com/storezhang/cli
 
 go 1.18
 

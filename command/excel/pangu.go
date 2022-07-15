@@ -1,4 +1,4 @@
-package command
+package excel
 
 import (
 	"github.com/pangum/pangu"
@@ -6,6 +6,7 @@ import (
 
 func init() {
 	pangu.New().Dependencies(
-		newDuplicate,
+		newMerge,
+		newCommand,
 	)
 }

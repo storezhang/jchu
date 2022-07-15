@@ -1,7 +1,7 @@
 package main
 
 import (
-	"cli/command"
+	"github.com/storezhang/cli/command"
 
 	"github.com/pangum/pangu"
 )
