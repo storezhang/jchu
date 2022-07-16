@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/storezhang/cli/command"
+	"github.com/storezhang/cli/command/excel"
 
 	"github.com/pangum/pangu"
 )
@@ -9,24 +9,24 @@ import (
 type (
 	bootstrap struct {
 		application *pangu.Application
-		duplicate   *command.Duplicate
+		excel       *excel.Command
 	}
 
 	bootstrapIn struct {
 		pangu.In
 
 		Application *pangu.Application
-		Duplicate   *command.Duplicate
+		Excel       *excel.Command
 	}
 )
 
 func newBootstrap(in bootstrapIn) pangu.Bootstrap {
 	return &bootstrap{
 		application: in.Application,
-		duplicate:   in.Duplicate,
+		excel:       in.Excel,
 	}
 }
 
 func (b *bootstrap) Setup() error {
-	return b.application.AddCommands(b.duplicate)
+	return b.application.AddCommands(b.excel)
 }

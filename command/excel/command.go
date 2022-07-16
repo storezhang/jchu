@@ -45,5 +45,5 @@ func (c *Command) Name() string {
 }
 
 func (c *Command) Usage() string {
-	return ``
+	return `处理Office Excel表格文件`
 }

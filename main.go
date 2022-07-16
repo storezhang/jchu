@@ -7,6 +7,6 @@ import (
 func main() {
 	panic(pangu.New(
 		pangu.Named(`cli`),
-		pangu.Banner(`Sczx Cli`, pangu.BannerTypeAscii),
+		pangu.Banner(`Storezhang Cli`, pangu.BannerTypeAscii),
 	).Run(newBootstrap))
 }

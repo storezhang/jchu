@@ -3,6 +3,7 @@ module github.com/storezhang/cli
 go 1.18
 
 require (
+	github.com/goexl/gox v0.0.5
 	github.com/pangum/logging v0.1.5
 	github.com/pangum/pangu v0.1.3
 	github.com/xuri/excelize/v2 v2.6.0
@@ -19,7 +20,6 @@ require (
 	github.com/goexl/env v0.0.2 // indirect
 	github.com/goexl/exc v0.0.4 // indirect
 	github.com/goexl/gfx v0.0.8 // indirect
-	github.com/goexl/gox v0.0.5 // indirect
 	github.com/goexl/mengpo v0.1.7 // indirect
 	github.com/goexl/simaqian v0.1.3 // indirect
 	github.com/goexl/xiren v0.0.3 // indirect
