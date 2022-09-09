@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/storezhang/cli/command/excel"
+	"github.com/storezhang/cli/cmd/excel"
 
 	"github.com/pangum/pangu"
 )
@@ -27,6 +27,6 @@ func newBootstrap(in bootstrapIn) pangu.Bootstrap {
 	}
 }
 
-func (b *bootstrap) Setup() error {
+func (b *bootstrap) Startup() error {
 	return b.application.AddCommands(b.excel)
 }

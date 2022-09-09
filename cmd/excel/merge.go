@@ -1,14 +1,19 @@
 package excel
 
 import (
+	"github.com/pangum/pangu/cmd"
 	"github.com/storezhang/cli/service"
 
 	"github.com/pangum/pangu"
 	"github.com/pangum/pangu/app"
 )
 
+var _ app.Command = (*merge)(nil)
+
 type (
 	merge struct {
+		*cmd.Command
+
 		duplicate *service.Duplicate
 	}
 
@@ -21,6 +26,7 @@ type (
 
 func newMerge(in mergeIn) *merge {
 	return &merge{
+		Command:   cmd.New(`duplicate`, cmd.Aliases(`d`), cmd.Usage(``)),
 		duplicate: in.Duplicate,
 	}
 }
@@ -54,22 +60,4 @@ func (m *merge) Run(_ *app.Context) (err error) {
 	}
 
 	return
-}
-
-func (m *merge) SubCommands() (commands []app.Command) {
-	return
-}
-
-func (m *merge) Aliases() []string {
-	return []string{
-		`m`,
-	}
-}
-
-func (m *merge) Name() string {
-	return `duplicate`
-}
-
-func (m *merge) Usage() string {
-	return ``
 }
