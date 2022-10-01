@@ -1,4 +1,4 @@
-package service
+package word
 
 import (
 	"github.com/pangum/pangu"
@@ -6,7 +6,9 @@ import (
 
 func init() {
 	pangu.New().Dependencies(
-		newDuplicate,
+		newCommand,
+
+		newUpload,
 		newLicense,
 	)
 }
