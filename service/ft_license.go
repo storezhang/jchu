@@ -9,7 +9,7 @@ import (
 	"github.com/tjfoc/gmsm/sm3"
 )
 
-func (f *Ft) Upload(host, pk, license string, req *core.FtLicenseUploadReq) (rsp *core.FtLicenseUploadRsp, err error) {
+func (f *Ft) Upload(host, license string, req *core.FtLicenseUploadReq) (rsp *core.FtLicenseUploadRsp, err error) {
 	if data, readErr := ioutil.ReadFile(license); nil != readErr {
 		err = readErr
 	} else {
@@ -22,7 +22,7 @@ func (f *Ft) Upload(host, pk, license string, req *core.FtLicenseUploadReq) (rsp
 	}
 
 	rsp = new(core.FtLicenseUploadRsp)
-	err = f.sendfile(host, `/api/creditInquiry/uploadLicense`, pk, license, req, rsp)
+	err = f.sendfile(host, `/api/creditInquiry/uploadLicense`, license, req, rsp)
 
 	return
 }

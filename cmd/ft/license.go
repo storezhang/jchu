@@ -168,7 +168,7 @@ func (l *license) upload(license string, result *os.File, columns ...string) (su
 		return
 	}
 
-	if rsp, ue := l.ft.Upload(host, pk, realFile, req); nil != ue {
+	if rsp, ue := l.ft.Upload(host, realFile, req); nil != ue {
 		err = ue
 	} else {
 		_, err = result.WriteString(fmt.Sprintf("%s\t\t%s\t\t%s", req.Name, req.Code, rsp.LicenseId))
