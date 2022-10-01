@@ -1,22 +1,31 @@
 package service
 
 import (
+	"crypto/rand"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"strings"
 
+	"crypto/cipher"
+	"github.com/emmansun/gmsm/sm2"
+	"github.com/emmansun/gmsm/sm4"
+	"github.com/emmansun/gmsm/smx509"
 	"github.com/goexl/gox"
 	"github.com/goexl/gox/field"
 	"github.com/pangum/http"
 	"github.com/pangum/logging"
 	"github.com/pangum/pangu"
-	"github.com/tjfoc/gmsm/sm4"
 )
 
 type (
 	// Ft 授权协议上传
 	Ft struct {
-		http   *http.Client
-		logger *logging.Logger
+		http       *http.Client
+		key        *sm2.PrivateKey
+		privateHex string
+		publicHex  string
+		logger     *logging.Logger
 	}
 
 	ftIn struct {
@@ -36,23 +45,42 @@ type (
 	}
 )
 
-func newFt(in ftIn) *Ft {
-	return &Ft{
-		http:   in.Http,
-		logger: in.Logger,
+func newFt(in ftIn) (ft *Ft, err error) {
+	ft = new(Ft)
+	ft.http = in.Http
+	ft.logger = in.Logger
+	if ft.key, err = sm2.GenerateKey(rand.Reader); nil != err {
+		return
 	}
+
+	if pk, me := smx509.MarshalPKIXPublicKey(ft.key.Public()); nil != me {
+		err = me
+	} else {
+		ft.publicHex = strings.ToUpper(hex.EncodeToString(pk))
+	}
+	if nil != err {
+		return
+	}
+
+	if pk, me := smx509.MarshalSM2PrivateKey(ft.key); nil != me {
+		err = me
+	} else {
+		ft.privateHex = strings.ToUpper(hex.EncodeToString(pk))
+	}
+
+	return
 }
 
-func (f *Ft) request(host string, api string, pk string, req any, rsp any) error {
-	return f.sendfile(host, api, pk, ``, req, rsp)
+func (f *Ft) request(host string, api string, req any, rsp any) error {
+	return f.sendfile(host, api, ``, req, rsp)
 }
 
-func (f *Ft) sendfile(host string, api string, pk string, file string, req any, rsp any) (err error) {
+func (f *Ft) sendfile(host string, api string, file string, req any, rsp any) (err error) {
 	hr := f.http.R()
 	if form, formErr := gox.StructToForm(req); nil != formErr {
 		err = formErr
 	} else {
-		form[`publicKey`] = pk
+		form[`publicKey`] = f.publicHex
 		form[`token`] = `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHBJZCI6IjE1Njk2MTMyMzE4ODQ4ODYwMTciLCJleHBpcmVzVGltZSI6MTY2NDYzMDY4Mzc5OX0.nDZDWLutKRpbNwq3ltCo4uFQ3V456fxnyeWry8cbre8`
 		hr.SetFormData(form)
 	}
@@ -84,13 +112,19 @@ func (f *Ft) decrypt(raw []byte, rsp any) (err error) {
 	}
 
 	// 解密
-	if block, smErr := sm4.NewCipher([]byte(sdr.Key)); nil != smErr {
-		err = smErr
+	var block cipher.Block
+	if key, de := f.key.Decrypt(rand.Reader, []byte(sdr.Key), sm2.NewPlainDecrypterOpts(sm2.C1C2C3)); nil != de {
+		err = de
 	} else {
-		var decrypted []byte
-		block.Decrypt(decrypted, []byte(sdr.Data))
-		err = json.Unmarshal(decrypted, rsp)
+		block, err = sm4.NewCipher(key)
 	}
+	if nil != err {
+		return
+	}
+
+	var decrypted []byte
+	block.Decrypt(decrypted, []byte(sdr.Data))
+	err = json.Unmarshal(decrypted, rsp)
 
 	return
 }

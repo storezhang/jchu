@@ -3,6 +3,7 @@ module github.com/storezhang/cli
 go 1.18
 
 require (
+	github.com/emmansun/gmsm v0.14.1
 	github.com/goexl/gfx v0.1.1
 	github.com/goexl/gox v0.1.1
 	github.com/nguyenthenguyen/docx v0.0.0-20220721043308-1903da0ef37d
@@ -53,6 +54,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
-replace (
-	github.com/pangum/pangu => ../../pangum/pangu
-)
+replace github.com/pangum/pangu => ../../pangum/pangu
