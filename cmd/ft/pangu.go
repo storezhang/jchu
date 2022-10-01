@@ -1,4 +1,4 @@
-package word
+package ft
 
 import (
 	"github.com/pangum/pangu"

@@ -1,4 +1,4 @@
-package word
+package ft
 
 import (
 	"github.com/pangum/pangu"
@@ -24,7 +24,7 @@ type (
 
 func newUpload(in uploadIn) *upload {
 	return &upload{
-		Command: cmd.New(`upload`, cmd.Aliases(`u`), cmd.Usage(`文件上传`)),
+		Command: cmd.New(`upload`, cmd.Aliases(`u`, `up`), cmd.Usage(`文件上传`)),
 		license: in.License,
 	}
 }

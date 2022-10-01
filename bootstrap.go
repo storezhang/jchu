@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/storezhang/cli/cmd/excel"
-	"github.com/storezhang/cli/cmd/word"
+	"github.com/storezhang/cli/cmd/ft"
 
 	"github.com/pangum/pangu"
 )
@@ -11,7 +11,7 @@ type (
 	bootstrap struct {
 		application *pangu.Application
 		excel       *excel.Command
-		word        *word.Command
+		word        *ft.Command
 	}
 
 	bootstrapIn struct {
@@ -19,7 +19,7 @@ type (
 
 		Application *pangu.Application
 		Excel       *excel.Command
-		Word        *word.Command
+		Word        *ft.Command
 	}
 )
 

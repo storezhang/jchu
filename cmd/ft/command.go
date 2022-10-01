@@ -1,8 +1,9 @@
-package word
+package ft
 
 import (
 	"github.com/pangum/pangu"
 	"github.com/pangum/pangu/app"
+	"github.com/pangum/pangu/arg"
 	"github.com/pangum/pangu/cmd"
 )
 
@@ -25,7 +26,7 @@ type (
 
 func newCommand(in commandIn) *Command {
 	return &Command{
-		Command: cmd.New(`doc`, cmd.Usage(`处理Office Word文件`), cmd.Aliases(`w`, `word`, `docx`)),
+		Command: cmd.New(`fifty-two`, cmd.Usage(`52号文相关命令`), cmd.Aliases(`5`, `52`, `ft`)),
 		upload:  in.Upload,
 	}
 }
@@ -37,5 +38,15 @@ func (c *Command) Run(_ *app.Context) (err error) {
 func (c *Command) Subcommands() (commands []app.Command) {
 	return []app.Command{
 		c.upload,
+	}
+}
+
+func (c *Command) Args() []app.Arg {
+	return []app.Arg{
+		arg.NewString(
+			`host`, &host, arg.String(host),
+			arg.Aliases(`hst`),
+			arg.Usage("指定接口`地址`"),
+		),
 	}
 }
