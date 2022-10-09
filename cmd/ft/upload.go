@@ -17,8 +17,8 @@ var _ app.Command = (*upload)(nil)
 type upload struct {
 	*cmd.Command
 
-	ft         *ft.Client
-	license    string
+	ft *ft.Client
+
 	enterprise string
 	output     string
 	skipped    int
@@ -30,7 +30,6 @@ func newUpload(ft *ft.Client) *upload {
 		Command: cmd.New(`license`, cmd.Aliases(`u`, `up`), cmd.Usage(`文件上传`)),
 
 		ft:         ft,
-		license:    `license.docx`,
 		enterprise: `enterprise.xlsx`,
 		output:     `license`,
 		skipped:    1,
@@ -79,7 +78,7 @@ func (u *upload) Run(_ *app.Context) (err error) {
 		}
 
 		for {
-			if success, ue := u.action(u.license, resultFile, columns...); nil != ue || !success {
+			if success, ue := u.action(resultFile, columns...); nil != ue || !success {
 				time.Sleep(5 * time.Second)
 			} else {
 				break
@@ -92,11 +91,6 @@ func (u *upload) Run(_ *app.Context) (err error) {
 
 func (u *upload) Args() []app.Arg {
 	return []app.Arg{
-		arg.NewString(
-			`license`, &u.license, arg.String(u.license),
-			arg.Aliases(`u`, `lic`),
-			arg.Usage("指定授权`文件`"),
-		),
 		arg.NewString(
 			`enterprise`, &u.enterprise, arg.String(u.enterprise),
 			arg.Aliases(`e`, `ent`),

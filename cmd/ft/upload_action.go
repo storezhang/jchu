@@ -10,7 +10,7 @@ import (
 	"github.com/nguyenthenguyen/docx"
 )
 
-func (u *upload) action(license string, result *os.File, columns ...string) (success bool, err error) {
+func (u *upload) action(result *os.File, columns ...string) (success bool, err error) {
 	req := new(ft.LicenseUploadReq)
 	req.Name = columns[0]
 	req.Code = columns[1]
@@ -26,8 +26,8 @@ func (u *upload) action(license string, result *os.File, columns ...string) (suc
 	req.AuthorizedEndTime = columns[11]
 
 	var doc *docx.Docx
-	if file, readErr := docx.ReadDocxFile(license); nil != readErr {
-		err = readErr
+	if file, dfe := docx.ReadDocxFromFS(`template.docx`, licenseFS); nil != dfe {
+		err = dfe
 	} else {
 		doc = file.Editable()
 		defer func() {
