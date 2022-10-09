@@ -7,6 +7,5 @@ import (
 func init() {
 	pangu.New().Dependencies(
 		newDuplicate,
-		newFt,
 	)
 }

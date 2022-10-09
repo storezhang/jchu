@@ -14,20 +14,20 @@ type (
 	Command struct {
 		*cmd.Command
 
-		upload *upload
+		license *license
 	}
 
 	commandIn struct {
 		pangu.In
 
-		Upload *upload
+		License *license
 	}
 )
 
 func newCommand(in commandIn) *Command {
 	return &Command{
 		Command: cmd.New(`fifty-two`, cmd.Usage(`52号文相关命令`), cmd.Aliases(`5`, `52`, `ft`)),
-		upload:  in.Upload,
+		license: in.License,
 	}
 }
 
@@ -37,15 +37,30 @@ func (c *Command) Run(_ *app.Context) (err error) {
 
 func (c *Command) Subcommands() (commands []app.Command) {
 	return []app.Command{
-		c.upload,
+		c.license,
 	}
 }
 
 func (c *Command) Args() []app.Arg {
 	return []app.Arg{
 		arg.NewString(
-			`host`, &host, arg.String(host),
-			arg.Aliases(`hst`),
+			`id`, &addr, arg.String(addr),
+			arg.Aliases(`identify`, `ai`, `i`),
+			arg.Usage("指定应用`编号`"),
+		),
+		arg.NewString(
+			`key`, &addr, arg.String(addr),
+			arg.Aliases(`key`, `ak`, `k`),
+			arg.Usage("指定应用`用户名`"),
+		),
+		arg.NewString(
+			`secret`, &addr, arg.String(addr),
+			arg.Aliases(`as`, `sk`, `s`),
+			arg.Usage("指定接口`地址`"),
+		),
+		arg.NewString(
+			`addr`, &addr, arg.String(addr),
+			arg.Aliases(`address`, `a`),
 			arg.Usage("指定接口`地址`"),
 		),
 	}

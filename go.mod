@@ -3,20 +3,20 @@ module github.com/storezhang/cli
 go 1.18
 
 require (
-	github.com/emmansun/gmsm v0.14.1
+	github.com/goexl/ft v0.0.5
 	github.com/goexl/gfx v0.1.1
 	github.com/goexl/gox v0.1.1
 	github.com/nguyenthenguyen/docx v0.0.0-20220721043308-1903da0ef37d
-	github.com/pangum/http v0.0.6
+	github.com/pangum/ft v0.0.4
 	github.com/pangum/logging v0.1.6
 	github.com/pangum/pangu v0.2.1
-	github.com/tjfoc/gmsm v1.4.1
 	github.com/xuri/excelize/v2 v2.6.1
 )
 
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/drone/envsubst v1.0.3 // indirect
+	github.com/emmansun/gmsm v0.14.1 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
@@ -32,6 +32,7 @@ require (
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
+	github.com/pangum/http v0.0.6 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/richardlehane/mscfb v1.0.4 // indirect
 	github.com/richardlehane/msoleps v1.0.3 // indirect
@@ -53,5 +54,3 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-// replace github.com/pangum/pangu => ../../pangum/pangu

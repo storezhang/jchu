@@ -8,7 +8,8 @@ func init() {
 	pangu.New().Dependencies(
 		newCommand,
 
-		newUpload,
 		newLicense,
+		newUpload,
+		newTemplate,
 	)
 }
