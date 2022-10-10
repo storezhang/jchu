@@ -1,115 +1,45 @@
 package ft
 
 import (
-	"os"
-	"time"
-
-	"github.com/goexl/gfx"
-	"github.com/pangum/ft"
+	"github.com/pangum/pangu"
 	"github.com/pangum/pangu/app"
-	"github.com/pangum/pangu/arg"
 	"github.com/pangum/pangu/cmd"
-	"github.com/xuri/excelize/v2"
 )
 
 var _ app.Command = (*upload)(nil)
 
-type upload struct {
-	*cmd.Command
+type (
+	upload struct {
+		*cmd.Command
 
-	ft *ft.Client
+		license    *license
+		enterprise *enterprise
+	}
 
-	enterprise string
-	output     string
-	skipped    int
-	sheet      string
-}
+	uploadIn struct {
+		pangu.In
 
-func newUpload(ft *ft.Client) *upload {
+		License    *license
+		Enterprise *enterprise
+	}
+)
+
+func newUpload(in uploadIn) *upload {
 	return &upload{
-		Command: cmd.New(`license`, cmd.Aliases(`u`, `up`), cmd.Usage(`文件上传`)),
+		Command: cmd.New(`upload`, cmd.Aliases(`u`, `up`), cmd.Usage(`上传`)),
 
-		ft:         ft,
-		enterprise: `enterprise.xlsx`,
-		output:     `license`,
-		skipped:    1,
-		sheet:      `Sheet1`,
+		license:    in.License,
+		enterprise: in.Enterprise,
 	}
 }
 
 func (u *upload) Run(_ *app.Context) (err error) {
-	if _, exists := gfx.Exists(u.output); !exists {
-		err = os.MkdirAll(u.output, os.ModePerm)
-	}
-	if nil != err {
-		return
-	}
-
-	var excel *excelize.File
-	if excel, err = excelize.OpenFile(u.enterprise); nil != err {
-		return
-	}
-
-	var rows *excelize.Rows
-	if rows, err = excel.Rows(u.sheet); nil != err {
-		return
-	}
-	defer func() {
-		err = rows.Close()
-	}()
-
-	// 跳过N行
-	for i := 0; i < u.skipped; i++ {
-		rows.Next()
-	}
-
-	var resultFile *os.File
-	if resultFile, err = os.OpenFile(result, os.O_APPEND|os.O_WRONLY|os.O_CREATE, os.ModePerm); nil != err {
-		return
-	}
-	defer func() {
-		_ = resultFile.Close()
-	}()
-
-	var columns []string
-	for rows.Next() {
-		if columns, err = rows.Columns(); nil != err {
-			continue
-		}
-
-		for {
-			if success, ue := u.action(resultFile, columns...); nil != ue || !success {
-				time.Sleep(5 * time.Second)
-			} else {
-				break
-			}
-		}
-	}
-
 	return
 }
 
-func (u *upload) Args() []app.Arg {
-	return []app.Arg{
-		arg.NewString(
-			`enterprise`, &u.enterprise, arg.String(u.enterprise),
-			arg.Aliases(`e`, `ent`),
-			arg.Usage("指定企业表格`文件`"),
-		),
-		arg.NewString(
-			`result`, &result, arg.String(result),
-			arg.Aliases(`r`, `res`),
-			arg.Usage("指定结果记录`文件`"),
-		),
-		arg.NewInt(
-			`skipped`, &u.skipped, arg.Int(u.skipped),
-			arg.Aliases(`S`, `skip`),
-			arg.Usage("指定跳过行数"),
-		),
-		arg.NewString(
-			`sheet`, &u.sheet, arg.String(u.sheet),
-			arg.Aliases(`s`, `sht`),
-			arg.Usage("指定企业表格`表名`"),
-		),
+func (u *upload) Subcommands() (commands []app.Command) {
+	return []app.Command{
+		u.license,
+		u.enterprise,
 	}
 }

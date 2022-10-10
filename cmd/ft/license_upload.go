@@ -10,7 +10,7 @@ import (
 	"github.com/nguyenthenguyen/docx"
 )
 
-func (u *upload) action(result *os.File, columns ...string) (success bool, err error) {
+func (l *license) upload(result *os.File, columns ...string) (success bool, err error) {
 	req := new(ft.LicenseUploadReq)
 	req.Name = columns[0]
 	req.Code = columns[1]
@@ -46,12 +46,12 @@ func (u *upload) action(result *os.File, columns ...string) (success bool, err e
 	}
 
 	// 转换成PDF格式的文件
-	realFile := filepath.Join(u.output, fmt.Sprintf(`%s.docx`, strings.TrimSpace(req.Name)))
+	realFile := filepath.Join(l.output, fmt.Sprintf(`%s.docx`, strings.TrimSpace(req.Name)))
 	if err = doc.WriteToFile(realFile); nil != err {
 		return
 	}
 
-	if rsp, ue := u.ft.Upload(realFile, req, ft.Addr(addr), ft.App(id, key, secret)); nil != ue {
+	if rsp, ue := l.ft.Upload(realFile, req, ft.Addr(addr), ft.App(id, key, secret)); nil != ue {
 		err = ue
 	} else {
 		_, err = result.WriteString(fmt.Sprintf("%s\t\t%s\t\t%s", req.Name, req.Code, rsp.LicenseId))
