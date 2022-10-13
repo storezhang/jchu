@@ -14,7 +14,6 @@ type enterprise struct {
 
 	ft         *ft.Client
 	enterprise string
-	output     string
 	skipped    int
 	sheet      string
 }
@@ -25,7 +24,6 @@ func newEnterprise(ft *ft.Client) *enterprise {
 
 		ft:         ft,
 		enterprise: `enterprise.xlsx`,
-		output:     `enterprise`,
 		skipped:    1,
 		sheet:      `Sheet1`,
 	}
