@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/goexl/ft v0.0.5
-	github.com/goexl/gfx v0.1.1
+	github.com/goexl/gfx v0.1.3
 	github.com/goexl/gox v0.1.2
 	github.com/nguyenthenguyen/docx v0.0.0-20220721043308-1903da0ef37d
 	github.com/pangum/ft v0.0.4
