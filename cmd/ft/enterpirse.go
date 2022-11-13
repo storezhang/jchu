@@ -40,11 +40,6 @@ func (e *enterprise) Args() []app.Arg {
 			arg.Aliases(`e`, `ent`),
 			arg.Usage("指定企业表格`文件`"),
 		),
-		arg.NewString(
-			`result`, &result, arg.String(result),
-			arg.Aliases(`r`, `res`),
-			arg.Usage("指定结果记录`文件`"),
-		),
 		arg.NewInt(
 			`skipped`, &e.skipped, arg.Int(e.skipped),
 			arg.Aliases(`S`, `skip`),

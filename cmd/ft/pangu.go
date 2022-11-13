@@ -6,9 +6,11 @@ import (
 
 func init() {
 	pangu.New().Dependencies(
+		newArgs,
 		newCommand,
 
 		newUpload,
+		newLicenseArgs,
 		newLicense,
 		newEnterprise,
 
