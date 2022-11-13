@@ -1,6 +1,6 @@
-package ft
+package args
 
-type licenseArgs struct {
+type License struct {
 	Enterprise string `validate:"required"`
 	Input      string `validate:"required"`
 	Type       string `validate:"oneof=word direct pdf"`
@@ -10,8 +10,8 @@ type licenseArgs struct {
 	Sheet      string `validate:"required"`
 }
 
-func newLicenseArgs() *licenseArgs {
-	return &licenseArgs{
+func newLicense() *License {
+	return &License{
 		Enterprise: `enterprise.xlsx`,
 		Type:       "word",
 		Output:     `license`,

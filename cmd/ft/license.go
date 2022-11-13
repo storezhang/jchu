@@ -4,6 +4,7 @@ import (
 	"github.com/pangum/pangu/app"
 	"github.com/pangum/pangu/arg"
 	"github.com/pangum/pangu/cmd"
+	"github.com/storezhang/cli/args"
 )
 
 var _ app.Command = (*license)(nil)
@@ -12,20 +13,16 @@ type license struct {
 	*cmd.Command
 
 	upload *upload
-	args   *licenseArgs
+	args   *args.License
 }
 
-func newLicense(args *licenseArgs, upload *upload) *license {
+func newLicense(args *args.License, upload *upload) *license {
 	return &license{
 		Command: cmd.New("license", cmd.Aliases("lis", "l"), cmd.Usage("授权协议")),
 
 		args:   args,
 		upload: upload,
 	}
-}
-
-func (l *license) Run(_ *app.Context) (err error) {
-	return
 }
 
 func (l *license) Subcommands() (commands []app.Command) {

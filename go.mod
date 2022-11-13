@@ -3,19 +3,20 @@ module github.com/storezhang/cli
 go 1.18
 
 require (
-	github.com/goexl/ft v0.0.5
+	github.com/drone/envsubst v1.0.3
+	github.com/goexl/ft v0.0.6
 	github.com/goexl/gfx v0.1.3
 	github.com/goexl/gox v0.1.2
+	github.com/goexl/xiren v0.0.3
 	github.com/nguyenthenguyen/docx v0.0.0-20220721043308-1903da0ef37d
 	github.com/pangum/ft v0.0.4
 	github.com/pangum/logging v0.1.7
-	github.com/pangum/pangu v0.2.4
+	github.com/pangum/pangu v0.2.6
 	github.com/xuri/excelize/v2 v2.6.1
 )
 
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
-	github.com/drone/envsubst v1.0.3 // indirect
 	github.com/emmansun/gmsm v0.15.2 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
@@ -27,7 +28,6 @@ require (
 	github.com/goexl/exc v0.0.4 // indirect
 	github.com/goexl/mengpo v0.2.1 // indirect
 	github.com/goexl/simaqian v0.1.9 // indirect
-	github.com/goexl/xiren v0.0.3 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect

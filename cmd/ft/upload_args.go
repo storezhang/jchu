@@ -1,6 +1,10 @@
 package ft
 
+import (
+	"github.com/storezhang/cli/args"
+)
+
 type uploadArgs struct {
-	command *args        `validate:"required"`
-	license *licenseArgs `validate:"required"`
+	ft      *args.Ft      `validate:"required"`
+	license *args.License `validate:"required"`
 }

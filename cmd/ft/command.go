@@ -5,6 +5,7 @@ import (
 	"github.com/pangum/pangu/app"
 	"github.com/pangum/pangu/arg"
 	"github.com/pangum/pangu/cmd"
+	"github.com/storezhang/cli/args"
 )
 
 var _ app.Command = (*Command)(nil)
@@ -14,7 +15,7 @@ type (
 	Command struct {
 		*cmd.Command
 
-		args       *args
+		args       *args.Ft
 		license    *license
 		enterprise *enterprise
 	}
@@ -22,7 +23,7 @@ type (
 	commandIn struct {
 		pangu.In
 
-		Args       *args
+		Args       *args.Ft
 		License    *license
 		Enterprise *enterprise
 	}
@@ -36,10 +37,6 @@ func newCommand(in commandIn) *Command {
 		license:    in.License,
 		enterprise: in.Enterprise,
 	}
-}
-
-func (c *Command) Run(_ *app.Context) (err error) {
-	return
 }
 
 func (c *Command) Subcommands() (commands []app.Command) {

@@ -1,4 +1,4 @@
-package ft
+package args
 
 import (
 	"github.com/pangum/pangu"
@@ -6,12 +6,7 @@ import (
 
 func init() {
 	pangu.New().Dependencies(
-		newCommand,
-
+		newFt,
 		newLicense,
-		newUpload,
-		newEnterprise,
-
-		newTemplate,
 	)
 }

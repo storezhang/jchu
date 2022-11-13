@@ -1,6 +1,6 @@
-package ft
+package args
 
-type args struct {
+type Ft struct {
 	Id     string `validate:"required"`
 	Key    string `validate:"required"`
 	Secret string `validate:"required"`
@@ -8,8 +8,8 @@ type args struct {
 	Result string `validate:"required"`
 }
 
-func newArgs() *args {
-	return &args{
+func newFt() *Ft {
+	return &Ft{
 		Addr:   "https://202.61.91.57:8092",
 		Result: "result.txt",
 	}
