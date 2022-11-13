@@ -1,11 +1,11 @@
 package ft
 
 type args struct {
-	id     string
-	key    string
-	secret string
-	addr   string
-	result string
+	id     string `validate:"required"`
+	key    string `validate:"required"`
+	secret string `validate:"required"`
+	addr   string `validate:"required"`
+	result string `validate:"required"`
 }
 
 func newArgs() *args {

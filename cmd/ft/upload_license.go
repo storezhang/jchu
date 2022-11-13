@@ -8,19 +8,12 @@ import (
 
 var _ app.Command = (*upload)(nil)
 
-type (
-	upload struct {
-		*cmd.Command
+type upload struct {
+	*cmd.Command
 
-		service *service.Upload
-		args    uploadArgs
-	}
-
-	uploadArgs struct {
-		command *args
-		license *licenseArgs
-	}
-)
+	service *service.Upload
+	args    uploadArgs
+}
 
 func newUpload(service *service.Upload, args *args, license *licenseArgs) *upload {
 	return &upload{
@@ -34,7 +27,11 @@ func newUpload(service *service.Upload, args *args, license *licenseArgs) *uploa
 	}
 }
 
-func (u *upload) Run(_ *app.Context) error {
+func (u *upload) Run(_ *app.Context) (err error) {
+	if err = u.args.validate(); nil != err {
+		return
+	}
+
 	req := new(service.LicenseReq)
 	req.Addr = u.args.command.addr
 	req.Id = u.args.command.id
@@ -47,5 +44,7 @@ func (u *upload) Run(_ *app.Context) error {
 	req.Sheet = u.args.license.sheet
 	req.Skipped = u.args.license.skipped
 
-	return u.service.License(req)
+	err = u.service.License(req)
+
+	return
 }
