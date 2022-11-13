@@ -3,18 +3,17 @@ package service
 import (
 	"fmt"
 	"os"
-	"path/filepath"
-	"strings"
 	"time"
 
 	"github.com/goexl/ft"
 	"github.com/goexl/gfx"
 	"github.com/nguyenthenguyen/docx"
 	"github.com/storezhang/cli/asset"
+	"github.com/storezhang/cli/core"
 	"github.com/xuri/excelize/v2"
 )
 
-func (u *Upload) License(req *LicenseReq) (err error) {
+func (u *Upload) License(req *core.LicenseUploadReq) (err error) {
 	if _, exists := gfx.Exists(req.Output); !exists {
 		err = os.MkdirAll(req.Output, os.ModePerm)
 	}
@@ -66,7 +65,7 @@ func (u *Upload) License(req *LicenseReq) (err error) {
 	return
 }
 
-func (u *Upload) license(req *LicenseReq, result *os.File, columns []string) (success bool, err error) {
+func (u *Upload) license(req *core.LicenseUploadReq, result *os.File, columns []string) (success bool, err error) {
 	lur := new(ft.LicenseUploadReq)
 	lur.Name = columns[0]
 	lur.Code = columns[1]
@@ -81,6 +80,33 @@ func (u *Upload) license(req *LicenseReq, result *os.File, columns []string) (su
 	lur.AuthorizedStartTime = columns[10]
 	lur.AuthorizedEndTime = columns[11]
 
+	if file, re := u.realFile(req, lur); nil != re {
+		err = re
+	} else if rsp, ue := u.ft.Upload(file, lur, ft.Addr(req.Addr), ft.App(req.Id, req.Key, req.Secret)); nil != ue {
+		err = ue
+	} else {
+		_, err = result.WriteString(fmt.Sprintf("%s\t\t%s\t\t%s", lur.Name, lur.Code, rsp.LicenseId))
+	}
+
+	return
+}
+
+func (u *Upload) realFile(req *core.LicenseUploadReq, lur *ft.LicenseUploadReq) (filename string, err error) {
+	switch req.Type {
+	case core.LicenseTypeWord:
+		filename, err = u.fromWord(req, lur)
+	case core.LicenseTypeDirect:
+		filename, err = u.fromDirect(req, lur)
+	}
+
+	return
+}
+
+func (u *Upload) fromDirect(req *core.LicenseUploadReq, lur *ft.LicenseUploadReq) (string, error) {
+	return req.RealFilename(lur.Name, lur.Code)
+}
+
+func (u *Upload) fromWord(req *core.LicenseUploadReq, lur *ft.LicenseUploadReq) (filename string, err error) {
 	var doc *docx.Docx
 	if file, dfe := docx.ReadDocxFromFS(`template.docx`, asset.License); nil != dfe {
 		err = dfe
@@ -102,15 +128,8 @@ func (u *Upload) license(req *LicenseReq, result *os.File, columns []string) (su
 	}
 
 	// 转换成PDF格式的文件
-	realFile := filepath.Join(req.Output, fmt.Sprintf(`%s.docx`, strings.TrimSpace(lur.Name)))
-	if err = doc.WriteToFile(realFile); nil != err {
-		return
-	}
-
-	if rsp, ue := u.ft.Upload(realFile, lur, ft.Addr(req.Addr), ft.App(req.Id, req.Key, req.Secret)); nil != ue {
-		err = ue
-	} else {
-		_, err = result.WriteString(fmt.Sprintf("%s\t\t%s\t\t%s", lur.Name, lur.Code, rsp.LicenseId))
+	if filename, err = req.RealFilename(lur.Name, lur.Code); nil == err {
+		err = doc.WriteToFile(filename)
 	}
 
 	return

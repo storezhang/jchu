@@ -52,27 +52,27 @@ func (c *Command) Subcommands() (commands []app.Command) {
 func (c *Command) Args() []app.Arg {
 	return []app.Arg{
 		arg.NewString(
-			"id", &c.args.id, arg.String(c.args.id),
+			"id", &c.args.Id, arg.String(c.args.Id),
 			arg.Aliases("identify", "i"),
 			arg.Usage("指定应用`编号`"),
 		),
 		arg.NewString(
-			"key", &c.args.key, arg.String(c.args.key),
+			"key", &c.args.Key, arg.String(c.args.Key),
 			arg.Aliases("ak", "k"),
 			arg.Usage("指定应用`用户名`"),
 		),
 		arg.NewString(
-			"secret", &c.args.secret, arg.String(c.args.secret),
+			"secret", &c.args.Secret, arg.String(c.args.Secret),
 			arg.Aliases("sk", "s"),
 			arg.Usage("指定接口`地址`"),
 		),
 		arg.NewString(
-			"addr", &c.args.addr, arg.String(c.args.addr),
+			"addr", &c.args.Addr, arg.String(c.args.Addr),
 			arg.Aliases("address", "a"),
 			arg.Usage("指定接口`地址`"),
 		),
 		arg.NewString(
-			`result`, &c.args.result, arg.String(c.args.result),
+			`result`, &c.args.Result, arg.String(c.args.Result),
 			arg.Aliases(`r`, `res`),
 			arg.Usage("指定结果记录`文件`"),
 		),

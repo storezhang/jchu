@@ -1,8 +1,10 @@
 package ft
 
 import (
+	"github.com/goexl/xiren"
 	"github.com/pangum/pangu/app"
 	"github.com/pangum/pangu/cmd"
+	"github.com/storezhang/cli/core"
 	"github.com/storezhang/cli/service"
 )
 
@@ -28,21 +30,24 @@ func newUpload(service *service.Upload, args *args, license *licenseArgs) *uploa
 }
 
 func (u *upload) Run(_ *app.Context) (err error) {
-	if err = u.args.validate(); nil != err {
+	if err = xiren.Struct(u.args); nil != err {
 		return
 	}
 
-	req := new(service.LicenseReq)
-	req.Addr = u.args.command.addr
-	req.Id = u.args.command.id
-	req.Key = u.args.command.key
-	req.Secret = u.args.command.secret
+	req := new(core.LicenseUploadReq)
+	req.Addr = u.args.command.Addr
+	req.Id = u.args.command.Id
+	req.Key = u.args.command.Key
+	req.Secret = u.args.command.Secret
 
-	req.Output = u.args.license.output
-	req.Result = u.args.command.result
-	req.Enterprise = u.args.license.enterprise
-	req.Sheet = u.args.license.sheet
-	req.Skipped = u.args.license.skipped
+	req.Type = u.args.license.Type
+	req.Input = u.args.license.Input
+	req.Output = u.args.license.Output
+	req.Filename = u.args.license.Filename
+	req.Result = u.args.command.Result
+	req.Enterprise = u.args.license.Enterprise
+	req.Sheet = u.args.license.Sheet
+	req.Skipped = u.args.license.Skipped
 
 	err = u.service.License(req)
 

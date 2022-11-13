@@ -37,17 +37,37 @@ func (l *license) Subcommands() (commands []app.Command) {
 func (l *license) Args() []app.Arg {
 	return []app.Arg{
 		arg.NewString(
-			`enterprise`, &l.args.enterprise, arg.String(l.args.enterprise),
+			`enterprise`, &l.args.Enterprise, arg.String(l.args.Enterprise),
 			arg.Aliases(`e`, `ent`),
 			arg.Usage("指定企业表格`文件`"),
 		),
+		arg.NewString(
+			`type`, &l.args.Type, arg.String(l.args.Type),
+			arg.Aliases(`t`, `typ`),
+			arg.Usage("指定授权文件`类型`"),
+		),
+		arg.NewString(
+			`filename`, &l.args.Filename, arg.String(l.args.Filename),
+			arg.Aliases(`f`, `fn`),
+			arg.Usage("指定授权`文件名`"),
+		),
+		arg.NewString(
+			`input`, &l.args.Input, arg.String(l.args.Input),
+			arg.Aliases(`i`, `in`),
+			arg.Usage("指定授权文件输入`目录`"),
+		),
+		arg.NewString(
+			`output`, &l.args.Output, arg.String(l.args.Output),
+			arg.Aliases(`o`, `out`),
+			arg.Usage("指定授权文件输出`目录`"),
+		),
 		arg.NewInt(
-			`skipped`, &l.args.skipped, arg.Int(l.args.skipped),
+			`skipped`, &l.args.Skipped, arg.Int(l.args.Skipped),
 			arg.Aliases(`S`, `skip`),
 			arg.Usage("指定跳过行数"),
 		),
 		arg.NewString(
-			`sheet`, &l.args.sheet, arg.String(l.args.sheet),
+			`sheet`, &l.args.Sheet, arg.String(l.args.Sheet),
 			arg.Aliases(`s`, `sht`),
 			arg.Usage("指定企业表格`表名`"),
 		),
