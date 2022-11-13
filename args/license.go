@@ -16,6 +16,7 @@ func newLicense() *License {
 		Type:       "word",
 		Output:     `license`,
 		Filenames: []string{
+			"${NAME}-${CODE}.docx",
 			"${NAME}-${CODE}.pdf",
 			"${NAME}+${CODE}.pdf",
 			"${NAME}_${CODE}.pdf",
