@@ -3,10 +3,13 @@ package service
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/goexl/ft"
 	"github.com/goexl/gfx"
+	"github.com/goexl/gox"
+	"github.com/goexl/gox/field"
 	"github.com/nguyenthenguyen/docx"
 	"github.com/storezhang/cli/asset"
 	"github.com/storezhang/cli/core"
@@ -53,39 +56,64 @@ func (u *Upload) License(req *core.LicenseUploadReq) (err error) {
 			continue
 		}
 
-		for {
-			if success, ue := u.license(req, resultFile, columns); nil != ue || !success {
+		success := true
+		name := columns[0]
+		code := columns[1]
+		for count := 0; count < 10; count++ {
+			if success, err = u.license(name, code, req, resultFile, columns[2:]); nil != err || !success {
 				time.Sleep(5 * time.Second)
 			} else {
 				break
 			}
+		}
+
+		subdirectory := "成功"
+		fields := gox.Fields{
+			field.String("企业名称", name),
+			field.String("统一代码", code),
+		}
+		if !success {
+			subdirectory = "失败"
+			u.logger.Warn("授权协议上传失败", fields.Connect(field.Error(err))...)
+		} else {
+			u.logger.Info("授权协议上传成功", fields...)
+		}
+		if path, pe := req.RealFilename(name, code); nil != pe {
+			err = pe
+		} else {
+			err = gfx.Rename(path, filepath.Join(filepath.Dir(path), subdirectory, gfx.Name(path, gfx.Ext(filepath.Ext(path)))))
 		}
 	}
 
 	return
 }
 
-func (u *Upload) license(req *core.LicenseUploadReq, result *os.File, columns []string) (success bool, err error) {
+func (u *Upload) license(
+	name string, code string,
+	req *core.LicenseUploadReq,
+	result *os.File,
+	contents []string,
+) (success bool, err error) {
 	lur := new(ft.LicenseUploadReq)
-	lur.Name = columns[0]
-	lur.Code = columns[1]
-	lur.AuthorizedInfos = columns[2]
-	lur.AuthorizedCode = columns[3]
-	lur.PlatformId = columns[4]
-	lur.Count = columns[5]
-	lur.LoanStage = columns[6]
-	lur.FileType = columns[7]
-	lur.CaSupplier = columns[8]
-	lur.ValidateUrl = columns[9]
-	lur.AuthorizedStartTime = columns[10]
-	lur.AuthorizedEndTime = columns[11]
+	lur.Name = name
+	lur.Code = code
+	lur.AuthorizedInfos = contents[0]
+	lur.AuthorizedCode = contents[1]
+	lur.PlatformId = contents[2]
+	lur.Count = contents[3]
+	lur.LoanStage = contents[4]
+	lur.FileType = contents[5]
+	lur.CaSupplier = contents[6]
+	lur.ValidateUrl = contents[7]
+	lur.AuthorizedStartTime = contents[8]
+	lur.AuthorizedEndTime = contents[9]
 
 	if file, re := u.realFile(req, lur); nil != re {
 		err = re
 	} else if rsp, ue := u.ft.Upload(file, lur, ft.Addr(req.Addr), ft.App(req.Id, req.Key, req.Secret)); nil != ue {
 		err = ue
 	} else {
-		_, err = result.WriteString(fmt.Sprintf("%s\t\t%s\t\t%s", lur.Name, lur.Code, rsp.LicenseId))
+		_, err = result.WriteString(fmt.Sprintf("%s\t\t%s\t\t%s\n", name, code, rsp.LicenseId))
 	}
 
 	return
