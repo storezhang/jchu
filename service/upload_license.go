@@ -43,12 +43,12 @@ func (u *Upload) License(req *core.LicenseUploadReq) (err error) {
 		rows.Next()
 	}
 
-	var resultFile *os.File
-	if resultFile, err = os.OpenFile(req.Result, os.O_APPEND|os.O_WRONLY|os.O_CREATE, os.ModePerm); nil != err {
+	var result *os.File
+	if result, err = os.OpenFile(req.Result, os.O_APPEND|os.O_WRONLY|os.O_CREATE, os.ModePerm); nil != err {
 		return
 	}
 	defer func() {
-		_ = resultFile.Close()
+		_ = result.Close()
 	}()
 
 	var columns []string
@@ -61,7 +61,7 @@ func (u *Upload) License(req *core.LicenseUploadReq) (err error) {
 		name := columns[0]
 		code := columns[1]
 		for count := 0; count < 10; count++ {
-			if success, err = u.license(name, code, req, resultFile, columns[2:]); nil != err || !success {
+			if success, err = u.license(name, code, req, result, columns[2:]); nil != err || !success {
 				time.Sleep(100 * time.Millisecond)
 			} else {
 				break
@@ -114,6 +114,7 @@ func (u *Upload) license(
 	} else if rsp, ue := u.ft.Upload(file, lur, ft.Addr(req.Addr), ft.App(req.Id, req.Key, req.Secret)); nil != ue {
 		err = ue
 	} else {
+		success = true
 		_, err = result.WriteString(fmt.Sprintf("%s\t\t%s\t\t%s\n", name, code, rsp.LicenseId))
 	}
 
