@@ -44,7 +44,7 @@ func (u *upload) Run(_ *app.Context) (err error) {
 	req.Type = u.args.license.Type
 	req.Input = u.args.license.Input
 	req.Output = u.args.license.Output
-	req.Filename = u.args.license.Filename
+	req.Filenames = u.args.license.Filenames
 	req.Result = u.args.ft.Result
 	req.Enterprise = u.args.license.Enterprise
 	req.Sheet = u.args.license.Sheet

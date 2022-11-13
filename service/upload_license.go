@@ -6,7 +6,6 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/goexl/exc"
 	"github.com/goexl/ft"
 	"github.com/goexl/gfx"
 	"github.com/goexl/gox"
@@ -127,9 +126,6 @@ func (u *Upload) realFile(req *core.LicenseUploadReq, lur *ft.LicenseUploadReq) 
 		filename, err = u.fromWord(req, lur)
 	case core.LicenseTypeDirect:
 		filename, err = u.fromDirect(req, lur)
-	}
-	if _, exists := gfx.Exists(filename); !exists {
-		err = exc.NewFields("文件不存在", field.String("企业名称", lur.Name), field.String("统一代码", lur.Code))
 	}
 
 	return

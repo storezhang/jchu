@@ -43,9 +43,9 @@ func (l *license) Args() []app.Arg {
 			arg.Aliases(`t`, `typ`),
 			arg.Usage("指定授权文件`类型`"),
 		),
-		arg.NewString(
-			`filename`, &l.args.Filename, arg.String(l.args.Filename),
-			arg.Aliases(`f`, `fn`),
+		arg.NewStrings(
+			`filenames`, &l.args.Filenames, arg.StringSlice(l.args.Filenames),
+			arg.Aliases(`fs`, `fns`),
 			arg.Usage("指定授权`文件名`"),
 		),
 		arg.NewString(

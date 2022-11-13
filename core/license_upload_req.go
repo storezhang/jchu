@@ -5,6 +5,9 @@ import (
 	"path/filepath"
 
 	"github.com/drone/envsubst"
+	"github.com/goexl/exc"
+	"github.com/goexl/gfx"
+	"github.com/goexl/gox/field"
 )
 
 // LicenseUploadReq 授权请求
@@ -17,7 +20,7 @@ type LicenseUploadReq struct {
 	Input      string
 	Output     string
 	Type       string
-	Filename   string
+	Filenames  []string
 	Result     string
 	Enterprise string
 	Sheet      string
@@ -25,12 +28,28 @@ type LicenseUploadReq struct {
 }
 
 func (lur *LicenseUploadReq) RealFilename(name string, code string) (filename string, err error) {
-	if name, ne := envsubst.Eval(lur.Filename, lur.env(name, code)); nil != ne {
-		err = ne
-	} else if LicenseTypeWord == lur.Type {
-		filename = filepath.Join(lur.Output, name)
+	for _, _filename := range lur.Filenames {
+		if _filename, err = lur.filename(_filename, name, code); nil == err {
+			return
+		}
+	}
+
+	return
+}
+
+func (lur *LicenseUploadReq) filename(filename string, name string, code string) (final string, err error) {
+	if name, ee := envsubst.Eval(filename, lur.env(name, code)); nil != ee {
+		err = ee
+	} else if LicenseTypeDirect == lur.Type {
+		final = filepath.Join(lur.Input, name)
 	} else {
-		filename = filepath.Join(lur.Input, name)
+		final = filepath.Join(lur.Output, name)
+	}
+
+	if LicenseTypeDirect == lur.Type {
+		if _, exists := gfx.Exists(final); !exists {
+			err = exc.NewFields("文件不存在", field.String("企业名称", name), field.Strings("统一代码", code))
+		}
 	}
 
 	return

@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/drone/envsubst v1.0.3
+	github.com/goexl/exc v0.0.4
 	github.com/goexl/ft v0.0.7
 	github.com/goexl/gfx v0.1.5
 	github.com/goexl/gox v0.1.2
@@ -25,7 +26,6 @@ require (
 	github.com/go-resty/resty/v2 v2.7.0 // indirect
 	github.com/goexl/baozheng v0.0.1 // indirect
 	github.com/goexl/env v0.0.2 // indirect
-	github.com/goexl/exc v0.0.4 // indirect
 	github.com/goexl/mengpo v0.2.1 // indirect
 	github.com/goexl/simaqian v0.1.9 // indirect
 	github.com/google/uuid v1.3.0 // indirect
@@ -53,4 +53,8 @@ require (
 	golang.org/x/sys v0.2.0 // indirect
 	golang.org/x/text v0.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+)
+
+replace (
+	github.com/pangum/pangu => ../../pangum/pangu
 )
