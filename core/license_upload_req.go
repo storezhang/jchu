@@ -29,9 +29,12 @@ type LicenseUploadReq struct {
 
 func (lur *LicenseUploadReq) RealFilename(name string, code string) (filename string, err error) {
 	for _, _filename := range lur.Filenames {
-		if _filename, err = lur.filename(_filename, name, code); nil == err {
-			return
+		if filename, err = lur.filename(_filename, name, code); nil == err {
+			break
 		}
+	}
+	if "" != filename {
+		err = nil
 	}
 
 	return
@@ -48,6 +51,7 @@ func (lur *LicenseUploadReq) filename(filename string, name string, code string)
 
 	if LicenseTypeDirect == lur.Type {
 		if _, exists := gfx.Exists(final); !exists {
+			final = ""
 			err = exc.NewFields("文件不存在", field.String("企业名称", name), field.Strings("统一代码", code))
 		}
 	}

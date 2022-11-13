@@ -137,7 +137,7 @@ func (u *Upload) fromDirect(req *core.LicenseUploadReq, lur *ft.LicenseUploadReq
 
 func (u *Upload) fromWord(req *core.LicenseUploadReq, lur *ft.LicenseUploadReq) (filename string, err error) {
 	var doc *docx.Docx
-	if file, dfe := docx.ReadDocxFromFS(`template.docx`, asset.License); nil != dfe {
+	if file, dfe := docx.ReadDocxFromFS("license/template.docx", asset.License); nil != dfe {
 		err = dfe
 	} else {
 		doc = file.Editable()
