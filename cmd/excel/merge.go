@@ -26,7 +26,8 @@ type (
 
 func newMerge(in mergeIn) *merge {
 	return &merge{
-		Command:   cmd.New(`duplicate`, cmd.Aliases(`d`), cmd.Usage(``)),
+		Command: cmd.New("duplicate").Aliases("d", "dup").Usage(`去重`).Build(),
+
 		duplicate: in.Duplicate,
 	}
 }

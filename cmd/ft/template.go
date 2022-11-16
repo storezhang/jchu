@@ -13,7 +13,7 @@ type template struct {
 
 func newTemplate() *template {
 	return &template{
-		Command: cmd.New(`template`, cmd.Aliases(`t`, `tpl`), cmd.Usage(`文件模板`)),
+		Command: cmd.New("template").Aliases(`t`, `tpl`).Usage(`文件模板`).Build(),
 	}
 }
 

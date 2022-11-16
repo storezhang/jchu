@@ -51,6 +51,7 @@ func (u *Upload) License(req *core.LicenseUploadReq) (err error) {
 	}()
 
 	var columns []string
+	count := 1
 	for rows.Next() {
 		if columns, err = rows.Columns(); nil != err {
 			continue
@@ -59,7 +60,7 @@ func (u *Upload) License(req *core.LicenseUploadReq) (err error) {
 		success := true
 		name := columns[0]
 		code := columns[1]
-		for count := 0; count < 10; count++ {
+		for count := 0; count < 2; count++ {
 			if success, err = u.license(name, code, req, result, columns[2:]); nil != err || !success {
 				time.Sleep(100 * time.Millisecond)
 			} else {
@@ -69,8 +70,9 @@ func (u *Upload) License(req *core.LicenseUploadReq) (err error) {
 
 		subdirectory := "成功"
 		fields := gox.Fields{
-			field.String("企业名称", name),
-			field.String("统一代码", code),
+			field.String("name", name),
+			field.String("code", code),
+			field.Int("count", count),
 		}
 		if !success {
 			subdirectory = "失败"
@@ -83,6 +85,7 @@ func (u *Upload) License(req *core.LicenseUploadReq) (err error) {
 		} else {
 			err = gfx.Rename(path, filepath.Join(filepath.Dir(path), subdirectory, gfx.Name(path, gfx.Ext(filepath.Ext(path)))))
 		}
+		count++
 	}
 
 	return

@@ -20,7 +20,7 @@ type upload struct {
 
 func newUpload(service *service.Upload, ft *args.Ft, license *args.License) *upload {
 	return &upload{
-		Command: cmd.New(`upload`, cmd.Aliases(`u`, `up`), cmd.Usage(`上传`)),
+		Command: cmd.New("upload").Aliases("u", "up").Usage(`上传`).Build(),
 
 		service: service,
 		args: uploadArgs{

@@ -20,7 +20,7 @@ type enterprise struct {
 
 func newEnterprise(ft *ft.Client) *enterprise {
 	return &enterprise{
-		Command: cmd.New(`Enterprise`, cmd.Aliases(`ent`, `e`), cmd.Usage(`企业信息`)),
+		Command: cmd.New("enterprise").Aliases("ent", "e").Usage("企业信息").Build(),
 
 		ft:         ft,
 		enterprise: `Enterprise.xlsx`,
@@ -33,22 +33,22 @@ func (e *enterprise) Run(_ *app.Context) (err error) {
 	return
 }
 
-func (e *enterprise) Args() []app.Arg {
-	return []app.Arg{
-		arg.NewString(
-			`Enterprise`, &e.enterprise, arg.String(e.enterprise),
-			arg.Aliases(`e`, `ent`),
-			arg.Usage("指定企业表格`文件`"),
-		),
-		arg.NewInt(
-			`Skipped`, &e.skipped, arg.Int(e.skipped),
-			arg.Aliases(`S`, `skip`),
-			arg.Usage("指定跳过行数"),
-		),
-		arg.NewString(
-			`Sheet`, &e.sheet, arg.String(e.sheet),
-			arg.Aliases(`s`, `sht`),
-			arg.Usage("指定企业表格`表名`"),
-		),
+func (e *enterprise) Arguments() app.Arguments {
+	return app.Arguments{
+		arg.New[string]("enterprise", &e.enterprise).
+			Default(e.enterprise).
+			Aliases("e", "ent").
+			Usage("指定企业表格`文件`").
+			Build(),
+		arg.New[int]("skipped", &e.skipped).
+			Default(e.skipped).
+			Aliases("S", "skip").
+			Usage("指定跳过行数").
+			Build(),
+		arg.New[string]("sheet", &e.sheet).
+			Default(e.sheet).
+			Aliases("s", "sht").
+			Usage("指定企业表格`表名`").
+			Build(),
 	}
 }

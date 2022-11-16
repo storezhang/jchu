@@ -31,7 +31,7 @@ type (
 
 func newCommand(in commandIn) *Command {
 	return &Command{
-		Command: cmd.New("ft", cmd.Usage("52号文相关命令"), cmd.Aliases("52")),
+		Command: cmd.New("ft").Usage("52号文相关命令").Aliases("52").Build(),
 
 		args:       in.Args,
 		license:    in.License,
@@ -39,39 +39,39 @@ func newCommand(in commandIn) *Command {
 	}
 }
 
-func (c *Command) Subcommands() (commands []app.Command) {
-	return []app.Command{
+func (c *Command) Subcommands() (commands app.Commands) {
+	return app.Commands{
 		c.license,
 		c.enterprise,
 	}
 }
 
-func (c *Command) Args() []app.Arg {
-	return []app.Arg{
-		arg.NewString(
-			"id", &c.args.Id, arg.String(c.args.Id),
-			arg.Aliases("identify", "i"),
-			arg.Usage("指定应用`编号`"),
-		),
-		arg.NewString(
-			"key", &c.args.Key, arg.String(c.args.Key),
-			arg.Aliases("ak", "k"),
-			arg.Usage("指定应用`用户名`"),
-		),
-		arg.NewString(
-			"secret", &c.args.Secret, arg.String(c.args.Secret),
-			arg.Aliases("sk", "s"),
-			arg.Usage("指定接口`地址`"),
-		),
-		arg.NewString(
-			"addr", &c.args.Addr, arg.String(c.args.Addr),
-			arg.Aliases("address", "a"),
-			arg.Usage("指定接口`地址`"),
-		),
-		arg.NewString(
-			`result`, &c.args.Result, arg.String(c.args.Result),
-			arg.Aliases(`r`, `res`),
-			arg.Usage("指定结果记录`文件`"),
-		),
+func (c *Command) Arguments() app.Arguments {
+	return app.Arguments{
+		arg.New[string]("id", &c.args.Id).
+			Default(c.args.Id).
+			Aliases("i", "identify").
+			Usage("指定应用`编号`").
+			Build(),
+		arg.New[string]("key", &c.args.Key).
+			Default(c.args.Key).
+			Aliases("k", "ak").
+			Usage("指定应用`用户名`").
+			Build(),
+		arg.New[string]("secret", &c.args.Secret).
+			Default(c.args.Secret).
+			Aliases("s", "sk").
+			Usage("指定应用`密码`").
+			Build(),
+		arg.New[string]("addr", &c.args.Secret).
+			Default(c.args.Secret).
+			Aliases("a", "address").
+			Usage("指定接口`地址`").
+			Build(),
+		arg.New[string]("result", &c.args.Result).
+			Default(c.args.Result).
+			Aliases("r", "res").
+			Usage("指定结果记录`文件`").
+			Build(),
 	}
 }

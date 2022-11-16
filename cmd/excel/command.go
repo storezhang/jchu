@@ -29,7 +29,7 @@ type (
 
 func newCommand(in commandIn) *Command {
 	return &Command{
-		Command: cmd.New(`excel`, cmd.Usage(`处理Office Excel表格文件`), cmd.Aliases(`e`, `xlsx`)),
+		Command: cmd.New("excel").Usage("处理Office Excel表格文件").Aliases("e", "xlsx").Build(),
 		merge:   in.Merge,
 	}
 }
@@ -38,25 +38,22 @@ func (c *Command) Run(_ *app.Context) (err error) {
 	return
 }
 
-func (c *Command) Subcommands() (commands []app.Command) {
-	return []app.Command{
+func (c *Command) Subcommands() (commands app.Commands) {
+	return app.Commands{
 		c.merge,
 	}
 }
 
-func (c *Command) Args() []app.Arg {
-	return []app.Arg{
-		arg.NewStrings(
-			`inputs`, &c.inputs,
-			arg.Aliases(`i`, `ins`),
-			arg.Usage("指定输入`文件列表`"),
-			arg.Required(),
-		),
-		arg.NewString(
-			`output`, &c.output,
-			arg.Aliases(`o`, `out`),
-			arg.Usage("指定输出`文件`"),
-			arg.Required(),
-		),
+func (c *Command) Arguments() app.Arguments {
+	return app.Arguments{
+		arg.New[[]string]("inputs", &c.inputs).
+			Aliases("i", "ins").
+			Usage("指定输入`文件列表`").
+			Build(),
+		arg.New[string]("output", &c.output).
+			Aliases("o", "out").
+			Required().
+			Usage("指定输出`文件`").
+			Build(),
 	}
 }
