@@ -12,7 +12,7 @@ require (
 	github.com/nguyenthenguyen/docx v0.0.0-20220721043308-1903da0ef37d
 	github.com/pangum/ft v0.0.4
 	github.com/pangum/logging v0.1.7
-	github.com/pangum/pangu v0.2.6
+	github.com/pangum/pangu v0.2.7
 	github.com/xuri/excelize/v2 v2.6.1
 )
 
@@ -54,5 +54,3 @@ require (
 	golang.org/x/text v0.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-replace github.com/pangum/pangu => ../../pangum/pangu
