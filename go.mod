@@ -4,10 +4,10 @@ go 1.18
 
 require (
 	github.com/drone/envsubst v1.0.3
-	github.com/goexl/exc v0.0.4
+	github.com/goexl/exc v0.0.5
 	github.com/goexl/ft v0.0.7
 	github.com/goexl/gfx v0.1.6
-	github.com/goexl/gox v0.1.2
+	github.com/goexl/gox v0.1.3
 	github.com/goexl/xiren v0.0.3
 	github.com/nguyenthenguyen/docx v0.0.0-20220721043308-1903da0ef37d
 	github.com/pangum/ft v0.0.4
@@ -30,7 +30,6 @@ require (
 	github.com/goexl/simaqian v0.1.9 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
-	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
 	github.com/pangum/http v0.0.6 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
