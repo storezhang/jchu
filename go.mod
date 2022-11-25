@@ -11,8 +11,8 @@ require (
 	github.com/goexl/xiren v0.0.4
 	github.com/nguyenthenguyen/docx v0.0.0-20220721043308-1903da0ef37d
 	github.com/pangum/ft v0.0.4
-	github.com/pangum/logging v0.1.7
-	github.com/pangum/pangu v0.2.7
+	github.com/pangum/logging v0.1.8
+	github.com/pangum/pangu v0.2.8
 	github.com/xuri/excelize/v2 v2.6.1
 )
 
@@ -26,8 +26,8 @@ require (
 	github.com/go-resty/resty/v2 v2.7.0 // indirect
 	github.com/goexl/baozheng v0.0.1 // indirect
 	github.com/goexl/env v0.0.2 // indirect
-	github.com/goexl/mengpo v0.2.1 // indirect
-	github.com/goexl/simaqian v0.1.9 // indirect
+	github.com/goexl/mengpo v0.2.2 // indirect
+	github.com/goexl/simaqian v0.2.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
