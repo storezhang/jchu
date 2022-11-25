@@ -7,8 +7,8 @@ require (
 	github.com/goexl/exc v0.0.5
 	github.com/goexl/ft v0.0.7
 	github.com/goexl/gfx v0.1.6
-	github.com/goexl/gox v0.1.3
-	github.com/goexl/xiren v0.0.3
+	github.com/goexl/gox v0.1.4
+	github.com/goexl/xiren v0.0.4
 	github.com/nguyenthenguyen/docx v0.0.0-20220721043308-1903da0ef37d
 	github.com/pangum/ft v0.0.4
 	github.com/pangum/logging v0.1.7
@@ -47,7 +47,7 @@ require (
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	go.uber.org/zap v1.23.0 // indirect
-	golang.org/x/crypto v0.2.0 // indirect
+	golang.org/x/crypto v0.3.0 // indirect
 	golang.org/x/net v0.2.0 // indirect
 	golang.org/x/sys v0.2.0 // indirect
 	golang.org/x/text v0.4.0 // indirect
