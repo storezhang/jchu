@@ -6,7 +6,7 @@ require (
 	github.com/drone/envsubst v1.0.3
 	github.com/goexl/exc v0.0.5
 	github.com/goexl/ft v0.0.7
-	github.com/goexl/gfx v0.1.6
+	github.com/goexl/gfx v0.1.7
 	github.com/goexl/gox v0.1.6
 	github.com/goexl/xiren v0.0.5
 	github.com/nguyenthenguyen/docx v0.0.0-20220721043308-1903da0ef37d
