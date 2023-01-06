@@ -8,5 +8,6 @@ func init() {
 	pangu.New().Dependencies(
 		newFt,
 		newLicense,
+		newToken,
 	)
 }
