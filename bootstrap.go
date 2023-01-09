@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/storezhang/cli/cmd/apisix"
 	"github.com/storezhang/cli/cmd/excel"
 	"github.com/storezhang/cli/cmd/ft"
 
@@ -11,7 +12,8 @@ type (
 	bootstrap struct {
 		application *pangu.Application
 		excel       *excel.Command
-		word        *ft.Command
+		ft          *ft.Command
+		apisix      *apisix.Command
 	}
 
 	bootstrapIn struct {
@@ -19,7 +21,8 @@ type (
 
 		Application *pangu.Application
 		Excel       *excel.Command
-		Word        *ft.Command
+		Ft          *ft.Command
+		Apisix      *apisix.Command
 	}
 )
 
@@ -27,10 +30,11 @@ func newBootstrap(in bootstrapIn) pangu.Bootstrap {
 	return &bootstrap{
 		application: in.Application,
 		excel:       in.Excel,
-		word:        in.Word,
+		ft:          in.Ft,
+		apisix:      in.Apisix,
 	}
 }
 
 func (b *bootstrap) Startup() error {
-	return b.application.AddCommands(b.excel, b.word)
+	return b.application.AddCommands(b.excel, b.ft, b.apisix)
 }

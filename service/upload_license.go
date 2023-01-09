@@ -69,10 +69,10 @@ func (u *Upload) License(req *core.LicenseUploadReq) (err error) {
 		}
 
 		subdirectory := "成功"
-		fields := gox.Fields{
-			field.String("name", name),
-			field.String("code", code),
-			field.Int("count", count),
+		fields := gox.Fields[any]{
+			field.New("name", name),
+			field.New("code", code),
+			field.New("count", count),
 		}
 		if !success {
 			subdirectory = "失败"

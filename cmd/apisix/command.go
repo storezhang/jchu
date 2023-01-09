@@ -15,17 +15,15 @@ type (
 	Command struct {
 		*cmd.Command
 
-		args       *args.Token
-		license    *license
-		enterprise *pb
+		args *args.TokenServer
+		pb   *pb
 	}
 
 	commandIn struct {
 		pangu.In
 
-		Args       *args.Token
-		License    *license
-		Enterprise *pb
+		Args *args.TokenServer
+		Pb   *pb
 	}
 )
 
@@ -33,45 +31,28 @@ func newCommand(in commandIn) *Command {
 	return &Command{
 		Command: cmd.New("apisix").Usage("Apisix网关命令").Aliases("as").Build(),
 
-		args:       in.Args,
-		license:    in.License,
-		enterprise: in.Enterprise,
+		args: in.Args,
+		pb:   in.Pb,
 	}
 }
 
 func (c *Command) Subcommands() (commands app.Commands) {
 	return app.Commands{
-		c.license,
-		c.enterprise,
+		c.pb,
 	}
 }
 
 func (c *Command) Arguments() app.Arguments {
 	return app.Arguments{
-		arg.New[string]("id", &c.args.Id).
-			Default(c.args.Id).
-			Aliases("i", "identify").
-			Usage("指定应用`编号`").
+		arg.New("endpoint", &c.args.Addr).
+			Default(c.args.Addr).
+			Aliases("e", "ep").
+			Usage("指定服务器`端点`").
 			Build(),
-		arg.New[string]("key", &c.args.Key).
-			Default(c.args.Key).
+		arg.New("key", &c.args.Token).
+			Default(c.args.Token).
 			Aliases("k", "ak").
-			Usage("指定应用`用户名`").
-			Build(),
-		arg.New[string]("secret", &c.args.Secret).
-			Default(c.args.Secret).
-			Aliases("s", "sk").
-			Usage("指定应用`密码`").
-			Build(),
-		arg.New[string]("addr", &c.args.Secret).
-			Default(c.args.Secret).
-			Aliases("a", "address").
-			Usage("指定接口`地址`").
-			Build(),
-		arg.New[string]("result", &c.args.Result).
-			Default(c.args.Result).
-			Aliases("r", "res").
-			Usage("指定结果记录`文件`").
+			Usage("指定应用`通信密钥`").
 			Build(),
 	}
 }

@@ -52,7 +52,7 @@ func (lur *LicenseUploadReq) filename(filename string, name string, code string)
 	if LicenseTypeDirect == lur.Type {
 		if _, exists := gfx.Exists(final); !exists {
 			final = ""
-			err = exc.NewFields("文件不存在", field.String("企业名称", name), field.Strings("统一代码", code))
+			err = exc.NewFields("文件不存在", field.New("企业名称", name), field.New("统一代码", code))
 		}
 	}
 

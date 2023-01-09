@@ -1,4 +1,4 @@
-package args
+package apisix
 
 import (
 	"github.com/pangum/pangu"
@@ -6,8 +6,8 @@ import (
 
 func init() {
 	pangu.New().Dependencies(
-		newFt,
-		newLicense,
-		newTokenServer,
+		newCommand,
+
+		newPb,
 	)
 }

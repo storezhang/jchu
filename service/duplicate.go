@@ -12,10 +12,10 @@ import (
 )
 
 const (
-	sheetCreated    = `已去重`
-	sheetDuplicated = `重复的`
-	sheetEmpty      = `空`
-	sheetDefault    = `Sheet1`
+	sheetCreated    = "已去重"
+	sheetDuplicated = "重复的"
+	sheetEmpty      = "空"
+	sheetDefault    = "Sheet1"
 )
 
 type (
@@ -79,8 +79,9 @@ func (d *Duplicate) Removal(ins []string, out string, headers []string, sheets .
 	}
 
 	// 删除默认表
-	output.DeleteSheet(sheetDefault)
-	err = output.SaveAs(out)
+	if err = output.DeleteSheet(sheetDefault); nil == err {
+		err = output.SaveAs(out)
+	}
 
 	return
 }
@@ -121,7 +122,7 @@ func (d *Duplicate) sheet(
 		}
 
 		content := columns[3]
-		if `` == strings.TrimSpace(content) {
+		if "" == strings.TrimSpace(content) {
 			err = d.empty(out, sheet, content, &counter.empty, &init.empty, headers, columns...)
 		} else if _, ok := contents[content]; !ok {
 			err = d.new(out, sheet, content, &counter.create, &init.create, headers, columns...)
@@ -130,14 +131,14 @@ func (d *Duplicate) sheet(
 			err = d.old(out, sheet, content, &counter.duplicate, &init.duplicate, headers, columns...)
 		}
 
-		fields := gox.Fields{
-			field.String(`sheet`, sheet),
-			field.Strings(`contents`, columns...),
+		fields := gox.Fields[any]{
+			field.New("sheet", sheet),
+			field.New("contents", columns),
 		}
 		if nil != err {
-			d.logger.Warn(`写入数据遇到错误`, fields.Connect(field.Error(err))...)
+			d.logger.Warn("写入数据遇到错误", fields.Connect(field.Error(err))...)
 		} else {
-			d.logger.Debug(`写入数据成功`, fields...)
+			d.logger.Debug("写入数据成功", fields...)
 		}
 	}
 
@@ -158,17 +159,17 @@ func (d *Duplicate) new(
 		return
 	}
 
-	fields := gox.Fields{
-		field.String(`sheet`, sheet),
-		field.String(`content`, content),
-		field.Strings(`contents`, columns...),
+	fields := gox.Fields[any]{
+		field.New("sheet", sheet),
+		field.New("content", content),
+		field.New("contents", columns),
 	}
 	for index := 0; index < len(columns); index++ {
 		err = out.SetCellValue(sheetCreated, d.indexToColumnName(index, *row), columns[index])
 		if nil != err {
-			d.logger.Warn(`写入非重复数据遇到错误`, fields.Connect(field.Error(err))...)
+			d.logger.Warn("写入非重复数据遇到错误", fields.Connect(field.Error(err))...)
 		} else {
-			d.logger.Debug(`写入非重复数据成功`, fields...)
+			d.logger.Debug("写入非重复数据成功", fields...)
 		}
 	}
 	// 如果写入都没有错误，行数往下移
@@ -193,17 +194,17 @@ func (d *Duplicate) old(
 		return
 	}
 
-	fields := gox.Fields{
-		field.String(`sheet`, sheet),
-		field.String(`content`, content),
-		field.Strings(`contents`, columns...),
+	fields := gox.Fields[any]{
+		field.New("sheet", sheet),
+		field.New("content", content),
+		field.New("contents", columns),
 	}
 	for index := 0; index < len(columns); index++ {
 		err = out.SetCellDefault(sheetDuplicated, d.indexToColumnName(index, *row), columns[index])
 		if nil != err {
-			d.logger.Warn(`写入重复数据遇到错误`, fields.Connect(field.Error(err))...)
+			d.logger.Warn("写入重复数据遇到错误", fields.Connect(field.Error(err))...)
 		} else {
-			d.logger.Debug(`写入重复数据成功`, fields...)
+			d.logger.Debug("写入重复数据成功", fields...)
 		}
 	}
 	// 如果写入都没有错误，行数往下移
@@ -228,17 +229,17 @@ func (d *Duplicate) empty(
 		return
 	}
 
-	fields := gox.Fields{
-		field.String(`sheet`, sheet),
-		field.String(`content`, content),
-		field.Strings(`contents`, columns...),
+	fields := gox.Fields[any]{
+		field.New("sheet", sheet),
+		field.New("content", content),
+		field.New("contents", columns),
 	}
 	for index := 0; index < len(columns); index++ {
 		err = out.SetCellDefault(sheetEmpty, d.indexToColumnName(index, *row), columns[index])
 		if nil != err {
-			d.logger.Warn(`写入重复数据遇到错误`, fields.Connect(field.Error(err))...)
+			d.logger.Warn("写入重复数据遇到错误", fields.Connect(field.Error(err))...)
 		} else {
-			d.logger.Debug(`写入重复数据成功`, fields...)
+			d.logger.Debug("写入重复数据成功", fields...)
 		}
 	}
 	// 如果写入都没有错误，行数往下移
@@ -250,8 +251,9 @@ func (d *Duplicate) empty(
 }
 
 func (d *Duplicate) init(out *excelize.File, sheet string, init *bool, headers ...string) (err error) {
-	out.NewSheet(sheet)
-	if err = d.writeHeaders(out, sheet, headers...); nil == err {
+	if _, ne := out.NewSheet(sheet); nil != ne {
+		err = ne
+	} else if err = d.writeHeaders(out, sheet, headers...); nil == err {
 		*init = true
 	}
 
@@ -259,16 +261,16 @@ func (d *Duplicate) init(out *excelize.File, sheet string, init *bool, headers .
 }
 
 func (d *Duplicate) writeHeaders(out *excelize.File, sheet string, headers ...string) (err error) {
-	fields := gox.Fields{
-		field.String(`sheet`, sheet),
-		field.Strings(`headers`, headers...),
+	fields := gox.Fields[any]{
+		field.New("sheet", sheet),
+		field.New("headers", headers),
 	}
 	for index := 0; index < len(headers); index++ {
 		err = out.SetCellDefault(sheet, d.indexToColumnName(index, 1), headers[index])
 		if nil != err {
-			d.logger.Warn(`写入表头错误`, fields.Connect(field.Error(err))...)
+			d.logger.Warn("写入表头错误", fields.Connect(field.Error(err))...)
 		} else {
-			d.logger.Debug(`写入表头成功`, fields...)
+			d.logger.Debug("写入表头成功", fields...)
 		}
 	}
 
@@ -278,7 +280,7 @@ func (d *Duplicate) writeHeaders(out *excelize.File, sheet string, headers ...st
 func (d *Duplicate) indexToColumnName(index int, row int) (name string) {
 	code := index + 65
 	ascii := rune(code)
-	name = fmt.Sprintf(`%s%d`, string(ascii), row)
+	name = fmt.Sprintf("%s%d", string(ascii), row)
 
 	return
 }

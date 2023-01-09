@@ -35,17 +35,17 @@ func (e *enterprise) Run(_ *app.Context) (err error) {
 
 func (e *enterprise) Arguments() app.Arguments {
 	return app.Arguments{
-		arg.New[string]("enterprise", &e.enterprise).
+		arg.New("enterprise", &e.enterprise).
 			Default(e.enterprise).
 			Aliases("e", "ent").
 			Usage("指定企业表格`文件`").
 			Build(),
-		arg.New[int]("skipped", &e.skipped).
+		arg.New("skipped", &e.skipped).
 			Default(e.skipped).
 			Aliases("S", "skip").
 			Usage("指定跳过行数").
 			Build(),
-		arg.New[string]("sheet", &e.sheet).
+		arg.New("sheet", &e.sheet).
 			Default(e.sheet).
 			Aliases("s", "sht").
 			Usage("指定企业表格`表名`").
