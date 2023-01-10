@@ -60,7 +60,7 @@ func (p *pb) Run(_ *app.Context) (err error) {
 		err = ue
 		p.Warn("上传协议文件出错", fields.Connect(field.Error(ue))...)
 	} else {
-		p.Warn("上传协议文件成功", fields.Connect(field.New("rsp", rsp))...)
+		p.Debug("上传协议文件成功", fields.Connect(field.New("rsp", rsp))...)
 	}
 
 	return
@@ -70,7 +70,7 @@ func (p *pb) Arguments() app.Arguments {
 	return app.Arguments{
 		arg.New("id", &p.id).
 			Default(p.id).
-			Aliases("id", "identify").
+			Aliases("i", "identify").
 			Usage("指定协议`编号`，可以是任意字符，建议尽量选择有意义的编号").
 			Build(),
 		arg.New("filename", &p.filename).
