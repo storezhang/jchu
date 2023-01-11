@@ -7,7 +7,5 @@ import (
 func init() {
 	pangu.New().Dependencies(
 		newCommand,
-
-		newPb,
 	)
 }

@@ -1,4 +1,4 @@
-package apisix
+package pb
 
 import (
 	"context"
@@ -15,48 +15,56 @@ import (
 	"github.com/storezhang/cli/core"
 )
 
-var _ app.Command = (*pb)(nil)
+var _ app.Command = (*upload)(nil)
 
 type (
-	pb struct {
+	upload struct {
 		*cmd.Command
 		simaqian.Logger
 
 		creator *apisix.Creator
-		server  *args.TokenServer
+		args    uploadArgs
 
-		id          string
 		filename    string
 		description string
 	}
 
-	pbIn struct {
+	uploadArgs struct {
+		server *args.TokenServer
+		pb     *args.Pb
+	}
+
+	uploadIn struct {
 		pangu.In
 
 		Creator *apisix.Creator
 		Server  *args.TokenServer
+		Pb      *args.Pb
 		Logger  core.Logger
 	}
 )
 
-func newPb(in pbIn) *pb {
-	return &pb{
-		Command: cmd.New("pb").Aliases("protobuf", "proto", "p").Usage("Protobuf协议").Build(),
+func newUpload(in uploadIn) *upload {
+	return &upload{
+		Command: cmd.New("upload").Aliases("up", "u").Usage("上传Protobuf协议").Build(),
 		Logger:  in.Logger,
 
 		creator: in.Creator,
-		server:  in.Server,
+		args: uploadArgs{
+			server: in.Server,
+			pb:     in.Pb,
+		},
 	}
 }
 
-func (p *pb) Run(_ *app.Context) (err error) {
-	client := p.creator.Create(p.server.Addr, p.server.Token)
+func (p *upload) Run(_ *app.Context) (err error) {
+	client := p.creator.Create(p.args.server.Addr, p.args.server.Token)
 	fields := gox.Fields[any]{
 		field.New("filename", p.filename),
-		field.New("id", p.id),
+		field.New("id", p.args.pb.Id),
 		field.New("description", p.description),
 	}
-	if rsp, ue := client.UploadDescriptor(context.Background(), p.filename, p.id, p.description); nil != ue {
+	if rsp, ue := client.UploadDescriptor(context.Background(), p.filename, p.args.pb.Id, p.description); nil != ue {
 		err = ue
 		p.Warn("上传协议文件出错", fields.Connect(field.Error(ue))...)
 	} else {
@@ -66,20 +74,13 @@ func (p *pb) Run(_ *app.Context) (err error) {
 	return
 }
 
-func (p *pb) Arguments() app.Arguments {
+func (p *upload) Arguments() app.Arguments {
 	return app.Arguments{
-		arg.New("id", &p.id).
-			Default(p.id).
-			Aliases("i", "identify").
-			Usage("指定协议`编号`，可以是任意字符，建议尽量选择有意义的编号").
-			Build(),
 		arg.New("filename", &p.filename).
-			Default(p.filename).
 			Aliases("f", "fn").
 			Usage("指定协议`文件`").
 			Build(),
 		arg.New("description", &p.description).
-			Default(p.description).
 			Aliases("d", "desc").
 			Usage("指定协议`描述信息`").
 			Build(),

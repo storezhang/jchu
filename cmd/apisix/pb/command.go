@@ -1,4 +1,4 @@
-package apisix
+package pb
 
 import (
 	"github.com/pangum/pangu"
@@ -6,7 +6,6 @@ import (
 	"github.com/pangum/pangu/arg"
 	"github.com/pangum/pangu/cmd"
 	"github.com/storezhang/cli/args"
-	"github.com/storezhang/cli/cmd/apisix/pb"
 )
 
 var _ app.Command = (*Command)(nil)
@@ -16,44 +15,38 @@ type (
 	Command struct {
 		*cmd.Command
 
-		args *args.TokenServer
-		pb   *pb.Command
+		args   *args.Pb
+		upload *upload
 	}
 
 	commandIn struct {
 		pangu.In
 
-		Args *args.TokenServer
-		Pb   *pb.Command
+		Args   *args.Pb
+		Upload *upload
 	}
 )
 
 func newCommand(in commandIn) *Command {
 	return &Command{
-		Command: cmd.New("apisix").Usage("Apisix网关命令").Aliases("as").Build(),
+		Command: cmd.New("pb").Aliases("protobuf", "proto", "p").Usage("Protobuf协议").Build(),
 
-		args: in.Args,
-		pb:   in.Pb,
+		args:   in.Args,
+		upload: in.Upload,
 	}
 }
 
 func (c *Command) Subcommands() (commands app.Commands) {
 	return app.Commands{
-		c.pb,
+		c.upload,
 	}
 }
 
 func (c *Command) Arguments() app.Arguments {
 	return app.Arguments{
-		arg.New("endpoint", &c.args.Addr).
-			Default(c.args.Addr).
-			Aliases("e", "ep").
-			Usage("指定服务器`端点`").
-			Build(),
-		arg.New("key", &c.args.Token).
-			Default(c.args.Token).
-			Aliases("k", "ak").
-			Usage("指定应用`通信密钥`").
+		arg.New("id", &c.args.Id).
+			Aliases("i", "identify").
+			Usage("指定协议`编号`，可以是任意字符，建议尽量选择有意义的编号").
 			Build(),
 	}
 }
