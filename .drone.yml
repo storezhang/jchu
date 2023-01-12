@@ -32,8 +32,8 @@ steps:
   - name: 编译1
     image: ccr.ccs.tencentyun.com/pangum/drone
     commands:
-      - ls -al $${LINUX_OUTPUT}
-      - ls -al $${WINDOWS_OUTPUT}
+      - ls -al ${LINUX_OUTPUT}
+      - ls -al ${WINDOWS_OUTPUT}
 
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/github
