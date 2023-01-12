@@ -9,8 +9,8 @@ clone:
 
 environment:
   NAME: jchu
-  LINUX_OUTPUT: "jchu.linux"
-  WINDOWS_OUTPUT: "jchu.exe"
+  LINUX_OUTPUT: jchu.linux
+  WINDOWS_OUTPUT: jchu.exe
 
 
 trigger:
@@ -23,7 +23,7 @@ steps:
   - name: 代码
     image: ccr.ccs.tencentyun.com/dronestock/git
     commands:
-      - echo ${LINUX_OUTPUT}
+      - echo $${LINUX_OUTPUT}
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
@@ -40,10 +40,10 @@ steps:
   - name: 编译1
     image: ccr.ccs.tencentyun.com/pangum/drone
     commands:
-      - ls -al ${LINUX_OUTPUT}
-      - ls -al ${WINDOWS_OUTPUT}
-      - chmod +x ${LINUX_OUTPUT}
-      - ./${LINUX_OUTPUT}
+      - ls -al $${LINUX_OUTPUT}
+      - ls -al $${WINDOWS_OUTPUT}
+      - chmod +x $${LINUX_OUTPUT}
+      - ./$${LINUX_OUTPUT}
 
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/github
