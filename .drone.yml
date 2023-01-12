@@ -36,13 +36,14 @@ steps:
         - release/*
     environment:
       TAG: $${DRONE_BRANCH##release/v}
+      TOKEN:
+        from_secret: token_github
     settings:
       owner: storezhang
       repo: $${NAME}
       release:
         tag: $${DRONE_BRANCH##release/v}
-        token:
-          from_secret: token_github
+        token: $${TOKEN}
         assets:
           - label: $${NAME}-$${TAG}-linux-amd64
             name: Linux可执行程序
