@@ -51,9 +51,9 @@ steps:
         tag: v$${VERSION}
         token: $${TOKEN}
         assets:
-          - name: $${NAME}
+          - name: $${NAME}-$${VERSION}-linux-amd64
             file: $${LINUX_OUTPUT}
-          - name: $${NAME}.exe
+          - name: $${NAME}-$${VERSION}-windows-amd64.exe
             file: $${WINDOWS_OUTPUT}
 
 
