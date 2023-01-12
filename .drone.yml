@@ -29,8 +29,6 @@ steps:
       - name: go
         path: /var/lib/go
     settings:
-      compress:
-        enabled: false
       outputs:
         - name: $${LINUX_OUTPUT}
           os: linux
@@ -53,11 +51,9 @@ steps:
         tag: v$${VERSION}
         token: $${TOKEN}
         assets:
-          - label: $${NAME}-$${VERSION}-linux-amd64
-            name: $${NAME}
+          - name: $${NAME}
             file: $${LINUX_OUTPUT}
-          - label: $${NAME}-$${VERSION}-windows-amd64.exe
-            name: $${NAME}.exe
+          - name: $${NAME}.exe
             file: $${WINDOWS_OUTPUT}
 
 
