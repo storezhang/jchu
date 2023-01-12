@@ -1,0 +1,59 @@
+kind: pipeline
+type: docker
+name: 发布
+
+
+clone:
+  disable: true
+
+
+environment:
+  NAME: jchu
+  LINUX_OUTPUT: ${NAME}
+  WINDOWS_OUTPUT: ${NAME}.exe
+
+
+steps:
+  - name: 代码
+    image: ccr.ccs.tencentyun.com/dronestock/git
+
+  - name: 编译
+    image: ccr.ccs.tencentyun.com/pangum/drone
+    volumes:
+      - name: go
+        path: /var/lib/go
+    settings:
+      outputs:
+        - name: $${LINUX_OUTPUT}
+          os: linux
+        - name: $${WINDOWS_OUTPUT}
+          os: windows
+
+  - name: 发布
+    image: ccr.ccs.tencentyun.com/dronestock/github
+    when:
+      event:
+        - tag
+    settings:
+      owner: storezhang
+      repository: jchu
+      release:
+        tag: $${DRONE_TAG##v}
+        token:
+          from_secret: token_github
+        assets:
+          - label: $${NAME}-$${DRONE_TAG##v}-linux-amd64.tar.gz
+            name: Linux可执行程序
+            filename: $${LINUX_OUTPUT}
+          - label: $${NAME}-$${DRONE_TAG##v}-windows-amd64.exe
+            name: Windows可执行程序
+            filename: $${WINDOWS_OUTPUT}
+
+
+volumes:
+  - name: go
+    host:
+      path: /var/lib/cache/go
+  - name: docker
+    host:
+      path: /var/lib/cache/docker
