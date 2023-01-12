@@ -9,8 +9,8 @@ clone:
 
 environment:
   NAME: jchu
-  LINUX_OUTPUT: $${NAME}.linux
-  WINDOWS_OUTPUT: $${NAME}.exe
+  LINUX_OUTPUT: ${NAME}.linux
+  WINDOWS_OUTPUT: ${NAME}.exe
 
 
 trigger:
