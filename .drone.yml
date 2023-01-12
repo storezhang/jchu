@@ -22,6 +22,8 @@ trigger:
 steps:
   - name: 代码
     image: ccr.ccs.tencentyun.com/dronestock/git
+    commands:
+      - echo $${LINUX_OUTPUT}
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
