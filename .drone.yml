@@ -30,7 +30,7 @@ steps:
         path: /var/lib/go
     settings:
       compress:
-        enabled: false
+        enabled: true
       outputs:
         - name: $${LINUX_OUTPUT}
           os: linux
