@@ -52,10 +52,10 @@ steps:
         token: $${TOKEN}
         assets:
           - label: $${NAME}-$${VERSION}-linux-amd64
-            name: Linux可执行程序
+            name: $${NAME}
             file: $${LINUX_OUTPUT}
           - label: $${NAME}-$${VERSION}-windows-amd64.exe
-            name: Windows可执行程序
+            name: $${NAME}.exe
             file: $${WINDOWS_OUTPUT}
 
 
