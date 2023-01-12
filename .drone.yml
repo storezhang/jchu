@@ -9,8 +9,8 @@ clone:
 
 environment:
   NAME: jchu
-  LINUX_OUTPUT: ${NAME}.linux
-  WINDOWS_OUTPUT: ${NAME}.exe
+  LINUX_OUTPUT: jchu.linux
+  WINDOWS_OUTPUT: jchu.exe
 
 
 steps:
@@ -28,12 +28,6 @@ steps:
           os: linux
         - name: $${WINDOWS_OUTPUT}
           os: windows
-
-  - name: 编译1
-    image: ccr.ccs.tencentyun.com/pangum/drone
-    commands:
-      - ls -al ${LINUX_OUTPUT}
-      - ls -al ${WINDOWS_OUTPUT}
 
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/github
