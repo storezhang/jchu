@@ -32,17 +32,17 @@ steps:
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/github
     when:
-      branch:
-        - release/*
+      event:
+        - tag
     environment:
-      TAG: $${DRONE_BRANCH##release/v}
+      TAG: $${DRONE_TAG##v}
       TOKEN:
         from_secret: token_github
     settings:
       owner: storezhang
       repo: $${NAME}
       release:
-        tag: $${DRONE_BRANCH##release/v}
+        tag: $${TAG}
         token: $${TOKEN}
         assets:
           - label: $${NAME}-$${TAG}-linux-amd64
