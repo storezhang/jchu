@@ -9,7 +9,7 @@ clone:
 
 environment:
   NAME: jchu
-  LINUX_OUTPUT: jchu.linux
+  LINUX_OUTPUT: jchu.lin
   WINDOWS_OUTPUT: jchu.exe
 
 
