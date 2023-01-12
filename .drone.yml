@@ -54,6 +54,3 @@ volumes:
   - name: go
     host:
       path: /var/lib/cache/go
-  - name: docker
-    host:
-      path: /var/lib/cache/docker
