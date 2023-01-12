@@ -9,8 +9,8 @@ clone:
 
 environment:
   NAME: jchu
-  LINUX_OUTPUT: jchu.linux
-  WINDOWS_OUTPUT: jchu.exe
+  LINUX_OUTPUT: $${NAME}.linux
+  WINDOWS_OUTPUT: $${NAME}.exe
 
 
 steps:
@@ -38,7 +38,7 @@ steps:
       TAG: $${DRONE_BRANCH##release/v}
     settings:
       owner: storezhang
-      repository: jchu
+      repo: $${NAME}
       release:
         tag: $${DRONE_BRANCH##release/v}
         token:
