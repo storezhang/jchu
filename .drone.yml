@@ -9,8 +9,8 @@ clone:
 
 environment:
   NAME: jchu
-  LINUX_OUTPUT: $${NAME}
-  WINDOWS_OUTPUT: $${NAME}.exe
+  LINUX_OUTPUT: jchu
+  WINDOWS_OUTPUT: jchu.exe
 
 
 steps:
