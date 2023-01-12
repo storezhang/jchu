@@ -8,6 +8,5 @@ func init() {
 	pangu.New().Dependencies(
 		newDuplicate,
 		newUpload,
-		newApisix,
 	)
 }
