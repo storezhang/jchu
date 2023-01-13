@@ -1,4 +1,4 @@
-package enterpirse
+package enterprise
 
 import (
 	"github.com/pangum/pangu/app"

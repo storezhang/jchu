@@ -6,7 +6,7 @@ import (
 	"github.com/pangum/pangu/arg"
 	"github.com/pangum/pangu/cmd"
 	"github.com/storezhang/cli/args"
-	"github.com/storezhang/cli/cmd/ft/enterpirse"
+	"github.com/storezhang/cli/cmd/ft/enterprise"
 	"github.com/storezhang/cli/cmd/ft/license"
 )
 
@@ -19,7 +19,7 @@ type (
 
 		args       *args.Ft
 		license    *license.Command
-		enterprise *enterpirse.Command
+		enterprise *enterprise.Command
 	}
 
 	commandIn struct {
@@ -27,7 +27,7 @@ type (
 
 		Args       *args.Ft
 		License    *license.Command
-		Enterprise *enterpirse.Command
+		Enterprise *enterprise.Command
 	}
 )
 
