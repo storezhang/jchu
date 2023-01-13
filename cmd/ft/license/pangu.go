@@ -1,4 +1,4 @@
-package ft
+package license
 
 import (
 	"github.com/pangum/pangu"
@@ -7,5 +7,7 @@ import (
 func init() {
 	pangu.New().Dependencies(
 		newCommand,
+
+		newUpload,
 	)
 }

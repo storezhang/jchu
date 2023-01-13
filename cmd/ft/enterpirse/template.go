@@ -1,4 +1,4 @@
-package ft
+package enterpirse
 
 import (
 	"github.com/pangum/pangu/app"

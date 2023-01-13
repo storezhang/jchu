@@ -6,6 +6,8 @@ import (
 	"github.com/pangum/pangu/arg"
 	"github.com/pangum/pangu/cmd"
 	"github.com/storezhang/cli/args"
+	"github.com/storezhang/cli/cmd/ft/enterpirse"
+	"github.com/storezhang/cli/cmd/ft/license"
 )
 
 var _ app.Command = (*Command)(nil)
@@ -16,16 +18,16 @@ type (
 		*cmd.Command
 
 		args       *args.Ft
-		license    *license
-		enterprise *enterprise
+		license    *license.Command
+		enterprise *enterpirse.Command
 	}
 
 	commandIn struct {
 		pangu.In
 
 		Args       *args.Ft
-		License    *license
-		Enterprise *enterprise
+		License    *license.Command
+		Enterprise *enterpirse.Command
 	}
 )
 

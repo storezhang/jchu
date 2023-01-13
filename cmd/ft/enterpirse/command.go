@@ -1,4 +1,4 @@
-package ft
+package enterpirse
 
 import (
 	"github.com/pangum/ft"
@@ -7,9 +7,9 @@ import (
 	"github.com/pangum/pangu/cmd"
 )
 
-var _ app.Command = (*enterprise)(nil)
+var _ app.Command = (*Command)(nil)
 
-type enterprise struct {
+type Command struct {
 	*cmd.Command
 
 	ft         *ft.Client
@@ -18,9 +18,9 @@ type enterprise struct {
 	sheet      string
 }
 
-func newEnterprise(ft *ft.Client) *enterprise {
-	return &enterprise{
-		Command: cmd.New("enterprise").Aliases("ent", "e").Usage("企业信息").Build(),
+func newCommand(ft *ft.Client) *Command {
+	return &Command{
+		Command: cmd.New("Command").Aliases("ent", "e").Usage("企业信息").Build(),
 
 		ft:         ft,
 		enterprise: `Enterprise.xlsx`,
@@ -29,24 +29,24 @@ func newEnterprise(ft *ft.Client) *enterprise {
 	}
 }
 
-func (e *enterprise) Run(_ *app.Context) (err error) {
+func (c *Command) Run(_ *app.Context) (err error) {
 	return
 }
 
-func (e *enterprise) Arguments() app.Arguments {
+func (c *Command) Arguments() app.Arguments {
 	return app.Arguments{
-		arg.New("enterprise", &e.enterprise).
-			Default(e.enterprise).
-			Aliases("e", "ent").
+		arg.New("Command", &c.enterprise).
+			Default(c.enterprise).
+			Aliases("c", "ent").
 			Usage("指定企业表格`文件`").
 			Build(),
-		arg.New("skipped", &e.skipped).
-			Default(e.skipped).
+		arg.New("skipped", &c.skipped).
+			Default(c.skipped).
 			Aliases("S", "skip").
 			Usage("指定跳过行数").
 			Build(),
-		arg.New("sheet", &e.sheet).
-			Default(e.sheet).
+		arg.New("sheet", &c.sheet).
+			Default(c.sheet).
 			Aliases("s", "sht").
 			Usage("指定企业表格`表名`").
 			Build(),

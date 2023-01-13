@@ -1,4 +1,4 @@
-package ft
+package license
 
 import (
 	"github.com/goexl/xiren"
