@@ -13,12 +13,6 @@ environment:
   WINDOWS_OUTPUT: jchu.exe
 
 
-trigger:
-  tag:
-    exclude:
-      - tag
-
-
 steps:
   - name: 代码
     image: ccr.ccs.tencentyun.com/dronestock/git
@@ -38,10 +32,10 @@ steps:
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/github
     when:
-      branch:
-        - release/*
+      event:
+        - tag
     environment:
-      VERSION: $${DRONE_BRANCH##release/v}
+      VERSION: $${DRONE_TAG##v}
       TOKEN:
         from_secret: token_github
     settings:
