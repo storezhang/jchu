@@ -37,6 +37,9 @@ steps:
 
   - name: 改变
     image: ccr.ccs.tencentyun.com/dronestock/changelog
+    when:
+      event:
+        - tag
 
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/github
