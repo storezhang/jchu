@@ -35,13 +35,8 @@ steps:
           os: darwin
           arch: amd64
 
-  - name: 编译1
+  - name: 改变
     image: ccr.ccs.tencentyun.com/dronestock/changelog
-
-  - name: 编译2
-    image: ccr.ccs.tencentyun.com/dronestock/changelog
-    commands:
-      - cat CHANGELOG.md
 
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/github
@@ -53,11 +48,10 @@ steps:
       TOKEN:
         from_secret: token_github
     settings:
-      owner: storezhang
-      repo: $${NAME}
       release:
         tag: v$${VERSION}
         token: $${TOKEN}
+        body: CHANGELOG.md
         assets:
           - name: $${NAME}-$${VERSION}-linux-amd64
             file: $${LINUX_OUTPUT}
