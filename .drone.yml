@@ -9,8 +9,9 @@ clone:
 
 environment:
   NAME: jchu
-  LINUX_OUTPUT: jchu.lin
-  WINDOWS_OUTPUT: jchu.exe
+  LINUX_OUTPUT: jchu.amd64.lin
+  WINDOWS_OUTPUT: jchu.amd64.exe
+  MAC_OUTPUT: jchu.amd64.mac
 
 
 steps:
@@ -26,8 +27,13 @@ steps:
       outputs:
         - name: $${LINUX_OUTPUT}
           os: linux
+          arch: amd64
         - name: $${WINDOWS_OUTPUT}
           os: windows
+          arch: amd64
+        - name: $${MAC_OUTPUT}
+          os: darwin
+          arch: amd64
 
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/github
@@ -49,6 +55,8 @@ steps:
             file: $${LINUX_OUTPUT}
           - name: $${NAME}-$${VERSION}-windows-amd64.exe
             file: $${WINDOWS_OUTPUT}
+          - name: $${NAME}-$${VERSION}-darwin-amd64
+            file: $${MAC_OUTPUT}
 
 
 volumes:
