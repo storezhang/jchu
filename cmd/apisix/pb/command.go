@@ -5,7 +5,6 @@ import (
 	"github.com/pangum/pangu/app"
 	"github.com/pangum/pangu/arg"
 	"github.com/pangum/pangu/cmd"
-	"github.com/storezhang/cli/args"
 )
 
 var _ app.Command = (*Command)(nil)
@@ -15,14 +14,14 @@ type (
 	Command struct {
 		*cmd.Command
 
-		args   *args.Pb
+		args   *pbArgs
 		upload *upload
 	}
 
 	commandIn struct {
 		pangu.In
 
-		Args   *args.Pb
+		Args   *pbArgs
 		Upload *upload
 	}
 )

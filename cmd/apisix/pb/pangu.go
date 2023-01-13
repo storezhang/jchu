@@ -8,6 +8,7 @@ func init() {
 	pangu.New().Dependencies(
 		newCommand,
 
+		newPbArgs,
 		newUpload,
 	)
 }

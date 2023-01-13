@@ -9,6 +9,5 @@ func init() {
 		newFt,
 		newLicense,
 		newTokenServer,
-		newPb,
 	)
 }

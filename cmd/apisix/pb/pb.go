@@ -31,7 +31,7 @@ type (
 
 	uploadArgs struct {
 		server *args.TokenServer
-		pb     *args.Pb
+		pb     *pbArgs
 	}
 
 	uploadIn struct {
@@ -39,7 +39,7 @@ type (
 
 		Creator *apisix.Creator
 		Server  *args.TokenServer
-		Pb      *args.Pb
+		Pb      *pbArgs
 		Logger  core.Logger
 	}
 )
