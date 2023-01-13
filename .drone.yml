@@ -18,6 +18,12 @@ steps:
   - name: 代码
     image: ccr.ccs.tencentyun.com/dronestock/git
 
+  - name: 改变
+    image: ccr.ccs.tencentyun.com/dronestock/changelog
+
+  - name: 提交
+    image: ccr.ccs.tencentyun.com/dronestock/git
+
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
     volumes:
@@ -34,12 +40,6 @@ steps:
         - name: $${MAC_OUTPUT}
           os: darwin
           arch: amd64
-
-  - name: 改变
-    image: ccr.ccs.tencentyun.com/dronestock/changelog
-    when:
-      event:
-        - tag
 
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/github
