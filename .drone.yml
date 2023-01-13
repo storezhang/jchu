@@ -35,6 +35,14 @@ steps:
           os: darwin
           arch: amd64
 
+  - name: 编译1
+    image: ccr.ccs.tencentyun.com/dronestock/changelog
+
+  - name: 编译2
+    image: ccr.ccs.tencentyun.com/dronestock/changelog
+    commands:
+      - cat CHANGELOG.md
+
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/github
     when:
