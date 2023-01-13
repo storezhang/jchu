@@ -23,8 +23,9 @@ steps:
 
   - name: 提交
     image: ccr.ccs.tencentyun.com/dronestock/git
-    commands:
-      - echo $DRONE_NETRC_USERNAME $DRONE_NETRC_PASSWORD
+    settings:
+      ssh_key:
+        from_secret: ssh_key_github
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
