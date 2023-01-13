@@ -9,8 +9,14 @@ clone:
 
 environment:
   NAME: jchu
-  LINUX_OUTPUT: $${NAME}.linux
-  WINDOWS_OUTPUT: $${NAME}.exe
+  LINUX_OUTPUT: jchu.lin
+  WINDOWS_OUTPUT: jchu.exe
+
+
+trigger:
+  tag:
+    exclude:
+      - tag
 
 
 steps:
@@ -45,12 +51,10 @@ steps:
         tag: v$${VERSION}
         token: $${TOKEN}
         assets:
-          - label: $${NAME}-$${VERSION}-linux-amd64
-            name: Linux可执行程序
-            filename: $${LINUX_OUTPUT}
-          - label: $${NAME}-$${VERSION}-windows-amd64.exe
-            name: Windows可执行程序
-            filename: $${WINDOWS_OUTPUT}
+          - name: $${NAME}-$${VERSION}-linux-amd64
+            file: $${LINUX_OUTPUT}
+          - name: $${NAME}-$${VERSION}-windows-amd64.exe
+            file: $${WINDOWS_OUTPUT}
 
 
 volumes:

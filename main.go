@@ -6,7 +6,7 @@ import (
 
 func main() {
 	panic(pangu.New(
-		pangu.Named("cli"),
-		pangu.Banner("Storezhang Cli", pangu.BannerTypeAscii),
+		pangu.Named("jchu"),
+		pangu.Banner("Jchu", pangu.BannerTypeAscii),
 	).Run(newBootstrap))
 }
