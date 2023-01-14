@@ -23,6 +23,10 @@ steps:
 
   - name: 提交
     image: ccr.ccs.tencentyun.com/dronestock/git
+    settings:
+      username: storezhang
+      password:
+        from_secret: password_storezhang
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
