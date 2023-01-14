@@ -23,12 +23,6 @@ steps:
 
   - name: 提交
     image: ccr.ccs.tencentyun.com/dronestock/git
-    settings:
-      level: debug
-      remote: https://github.com/storezhang/jchu
-      username: storezhang
-      password:
-        from_secret: password_storezhang
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
