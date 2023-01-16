@@ -24,6 +24,7 @@ steps:
   - name: 提交
     image: ccr.ccs.tencentyun.com/dronestock/git
     settings:
+      clear: false
       remote: git@github.com:storezhang/jchu
       ssh_key:
         from_secret: ssh_key_github
