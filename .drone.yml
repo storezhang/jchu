@@ -19,7 +19,7 @@ steps:
     image: ccr.ccs.tencentyun.com/dronestock/git
     settings:
       log:
-        level: debug
+        level: error
 
   - name: 改变
     image: ccr.ccs.tencentyun.com/dronestock/changelog
