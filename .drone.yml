@@ -17,6 +17,9 @@ environment:
 steps:
   - name: 代码
     image: ccr.ccs.tencentyun.com/dronestock/git
+    settings:
+      log:
+        level: debug
 
   - name: 改变
     image: ccr.ccs.tencentyun.com/dronestock/changelog
