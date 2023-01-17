@@ -17,9 +17,6 @@ environment:
 steps:
   - name: 代码
     image: ccr.ccs.tencentyun.com/dronestock/git
-    settings:
-      log:
-        level: error
 
   - name: 改变
     image: ccr.ccs.tencentyun.com/dronestock/changelog
@@ -27,6 +24,7 @@ steps:
   - name: 提交
     image: ccr.ccs.tencentyun.com/dronestock/git
     settings:
+      retry: false
       username: storezhang
       password:
         from_secret: password_storezhang
