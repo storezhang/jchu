@@ -27,6 +27,8 @@ steps:
       username: storezhang
       password:
         from_secret: password_storezhang
+      commands:
+        - cat /root/.netrc
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
