@@ -29,6 +29,7 @@ steps:
     image: ccr.ccs.tencentyun.com/dronestock/git
     settings:
       retry: false
+      verbose: true
       username: storezhang
       password:
         from_secret: password_storezhang
