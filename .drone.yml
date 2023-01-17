@@ -35,6 +35,7 @@ steps:
         from_secret: password_storezhang
       commands:
         - cat /root/.netrc
+        - cd src
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
