@@ -18,8 +18,8 @@ steps:
   - name: 代码
     image: ccr.ccs.tencentyun.com/dronestock/git
     settings:
-      level: debug
-      verbose: true
+      commands:
+        - cat /root/.netrc
 
   - name: 改变
     image: ccr.ccs.tencentyun.com/dronestock/changelog
@@ -27,8 +27,6 @@ steps:
   - name: 提交
     image: ccr.ccs.tencentyun.com/dronestock/git
     settings:
-      retry: false
-      verbose: true
       username: storezhang
       password:
         from_secret: password_github
