@@ -27,9 +27,9 @@ steps:
   - name: 提交
     image: ccr.ccs.tencentyun.com/dronestock/git
     settings:
-      username: storezhang
-      password:
-        from_secret: password_github
+      remote: git@github.com:storezhang/jchu.git
+      ssh_key:
+        from_secret: ssh_key_github
       commands:
         - cat /root/.netrc
 
