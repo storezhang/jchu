@@ -31,7 +31,7 @@ steps:
       verbose: true
       username: storezhang
       password:
-        from_secret: password_storezhang
+        from_secret: password_github
       commands:
         - cat /root/.netrc
         - cd src
