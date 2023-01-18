@@ -19,8 +19,7 @@ steps:
     image: ccr.ccs.tencentyun.com/dronestock/git
     settings:
       level: debug
-      commands:
-        - echo $LEVEL
+      verbose: true
 
   - name: 改变
     image: ccr.ccs.tencentyun.com/dronestock/changelog

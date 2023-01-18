@@ -29,7 +29,7 @@ require (
 	github.com/goexl/apisix v0.0.2 // indirect
 	github.com/goexl/baozheng v0.0.1 // indirect
 	github.com/goexl/env v0.0.2 // indirect
-	github.com/goexl/mengpo v0.2.3 // indirect
+	github.com/goexl/mengpo v0.2.4 // indirect
 	github.com/goexl/structer v0.0.1 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
