@@ -30,8 +30,7 @@ steps:
       remote: git@github.com:storezhang/jchu.git
       key:
         from_secret: ssh_key_github
-      commands:
-        - sleep 2h
+      message: "docs(改变): 生成最新的改变日志"
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
