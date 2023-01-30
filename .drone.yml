@@ -30,6 +30,8 @@ steps:
       remote: git@github.com:storezhang/jchu.git
       key:
         from_secret: ssh_key_github
+      commands:
+        - cat /root/.ssh/id_rsa
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
