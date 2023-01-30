@@ -31,7 +31,7 @@ steps:
       key:
         from_secret: ssh_key_github
       commands:
-        - cat /root/.ssh/id_rsa
+        - sleep 2h
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
