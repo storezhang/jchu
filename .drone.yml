@@ -17,9 +17,6 @@ environment:
 steps:
   - name: 代码
     image: ccr.ccs.tencentyun.com/dronestock/git
-    settings:
-      commands:
-        - cat /root/.netrc
 
   - name: 改变
     image: ccr.ccs.tencentyun.com/dronestock/changelog
@@ -31,8 +28,6 @@ steps:
       key:
         from_secret: ssh_key_github
       message: "docs(改变): 生成最新的改变日志"
-      commands:
-        - sleep 2h
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
