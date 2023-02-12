@@ -24,9 +24,9 @@ steps:
 
   - name: 提交
     image: ccr.ccs.tencentyun.com/dronestock/git
+    failure: ignore
     settings:
       remote: git@github.com:storezhang/jchu.git
-      clear: false
       message: "docs(改变): 生成最新的改变日志[CI SKIP]"
       key:
         from_secret: ssh_key_github
