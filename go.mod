@@ -32,6 +32,7 @@ require (
 	github.com/goexl/mengpo v0.2.4 // indirect
 	github.com/goexl/structer v0.0.1 // indirect
 	github.com/google/uuid v1.3.0 // indirect
+	github.com/kr/text v0.2.0 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
