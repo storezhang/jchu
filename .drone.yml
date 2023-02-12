@@ -24,10 +24,11 @@ steps:
   - name: 提交
     image: ccr.ccs.tencentyun.com/dronestock/git
     settings:
-      remote: git@github.com:storezhang/jchu.git
+      remote: git@github.com:dronestock/changelog.git
+      clear: false
+      message: "docs(改变): 生成最新的改变日志[CI SKIP]"
       key:
         from_secret: ssh_key_github
-      message: "docs(改变): 生成最新的改变日志"
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
