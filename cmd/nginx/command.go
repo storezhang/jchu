@@ -50,27 +50,27 @@ func (c *Command) Subcommands() (commands app.Commands) {
 
 func (c *Command) Arguments() app.Arguments {
 	return app.Arguments{
-		arg.New[string]("id", &c.args.Id).
+		arg.New("id", &c.args.Id).
 			Default(c.args.Id).
 			Aliases("i", "identify").
 			Usage("指定应用`编号`").
 			Build(),
-		arg.New[string]("key", &c.args.Key).
+		arg.New("key", &c.args.Key).
 			Default(c.args.Key).
 			Aliases("k", "ak").
 			Usage("指定应用`用户名`").
 			Build(),
-		arg.New[string]("secret", &c.args.Secret).
+		arg.New("secret", &c.args.Secret).
 			Default(c.args.Secret).
 			Aliases("s", "sk").
 			Usage("指定应用`密码`").
 			Build(),
-		arg.New[string]("addr", &c.args.Secret).
+		arg.New("addr", &c.args.Secret).
 			Default(c.args.Secret).
 			Aliases("a", "address").
 			Usage("指定接口`地址`").
 			Build(),
-		arg.New[string]("result", &c.args.Result).
+		arg.New("result", &c.args.Result).
 			Default(c.args.Result).
 			Aliases("r", "res").
 			Usage("指定结果记录`文件`").
