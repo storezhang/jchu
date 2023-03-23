@@ -8,7 +8,7 @@ require (
 	github.com/goexl/ft v0.0.8
 	github.com/goexl/gfx v0.1.7
 	github.com/goexl/gox v0.2.0
-	github.com/goexl/simaqian v0.2.3
+	github.com/goexl/simaqian v0.2.4
 	github.com/goexl/xiren v0.0.5
 	github.com/nguyenthenguyen/docx v0.0.0-20220721043308-1903da0ef37d
 	github.com/pangum/apisix v0.0.2
