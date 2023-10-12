@@ -15,7 +15,7 @@ require (
 	github.com/pangum/ft v0.0.4
 	github.com/pangum/logging v0.1.9
 	github.com/pangum/pangu v0.3.1
-	github.com/xuri/excelize/v2 v2.7.1
+	github.com/xuri/excelize/v2 v2.8.0
 )
 
 require (
@@ -46,8 +46,8 @@ require (
 	github.com/storezhang/dig v0.0.1 // indirect
 	github.com/urfave/cli/v2 v2.24.3 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	github.com/xuri/efp v0.0.0-20220603152613-6918739fd470 // indirect
-	github.com/xuri/nfp v0.0.0-20220409054826-5e722a1d9e22 // indirect
+	github.com/xuri/efp v0.0.0-20230802181842-ad255f2331ca // indirect
+	github.com/xuri/nfp v0.0.0-20230819163627-dc951e3ffe1a // indirect
 	github.com/zs5460/art v0.2.0 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.9.0 // indirect
