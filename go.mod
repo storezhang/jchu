@@ -11,7 +11,7 @@ require (
 	github.com/goexl/gfx v0.2.5
 	github.com/goexl/gox v1.9.2
 	github.com/goexl/simaqian v0.4.0
-	github.com/goexl/xiren v0.0.8
+	github.com/goexl/xiren v0.0.9
 	github.com/nguyenthenguyen/docx v0.0.0-20220721043308-1903da0ef37d
 	github.com/pangum/apisix v0.0.2
 	github.com/pangum/ft v0.0.4
@@ -24,15 +24,15 @@ require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/emmansun/gmsm v0.15.6 // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
-	github.com/gabriel-vasile/mimetype v1.4.5 // indirect
+	github.com/gabriel-vasile/mimetype v1.4.9 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
-	github.com/go-playground/validator/v10 v10.22.1 // indirect
+	github.com/go-playground/validator/v10 v10.26.0 // indirect
 	github.com/go-resty/resty/v2 v2.9.1 // indirect
 	github.com/goexl/apisix v0.0.2 // indirect
 	github.com/goexl/baozheng v0.0.1 // indirect
 	github.com/goexl/env v0.0.2 // indirect
-	github.com/goexl/exception v0.0.1 // indirect
+	github.com/goexl/exception v0.0.3 // indirect
 	github.com/goexl/http v0.0.5 // indirect
 	github.com/goexl/mengpo v0.2.4 // indirect
 	github.com/goexl/structer v0.0.1 // indirect
