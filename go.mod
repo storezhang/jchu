@@ -8,7 +8,7 @@ require (
 	github.com/drone/envsubst v1.0.3
 	github.com/goexl/exc v0.0.5
 	github.com/goexl/ft v0.0.8
-	github.com/goexl/gfx v0.2.5
+	github.com/goexl/gfx v0.2.8
 	github.com/goexl/gox v1.9.2
 	github.com/goexl/simaqian v0.4.0
 	github.com/goexl/xiren v0.0.9
@@ -23,7 +23,7 @@ require (
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/emmansun/gmsm v0.15.6 // indirect
-	github.com/fsnotify/fsnotify v1.8.0 // indirect
+	github.com/fsnotify/fsnotify v1.9.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.9 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
